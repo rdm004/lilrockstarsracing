@@ -16,7 +16,7 @@ body {
     position: relative;
     height: 200px;
     background: url('website-images/flag2.png') repeat-x;
-    background-size: 350px; /* Make the background bigger */
+    background-size: contain;
     animation: ripple-flags 120s linear infinite;
     display: flex;
     justify-content: center;
@@ -47,7 +47,7 @@ body {
 
 .welcome h2 {
     color: #f47c20;
-    font-size: 30px;
+    font-size: 40px;
     margin-bottom: 20px;
 }
 
@@ -70,14 +70,16 @@ body {
 
 .hero-title {
     font-size: 2.5rem;
-    font-weight: bold !important;
+    font-weight: 700 !important;
+    font-family: Arial, sans-serif !important;
     color: #f47c20;
     background-color: rgba(0, 0, 0, 0.75);
     padding: 15px 25px;
     border-radius: 8px;
     display: inline-block;
-    font-family: Arial, sans-serif !important;
     text-align: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Navigation */
@@ -166,7 +168,7 @@ body {
 }
 
 /* Special Styling for Next Event */
-.next-event {
+.next-event-card {
     border: 2px solid #00ff00 !important; /* Green border */
 }
 
@@ -280,6 +282,17 @@ footer {
     padding: 20px;
 }
 
+.event-heading h1 {
+    color: chartreuse;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 15px 25px;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center;
+}
+
+
+
 /* Indented Paragraphs */
 .indented {
     display: block;
@@ -343,7 +356,6 @@ footer {
 
     .rules-section h2 {
         font-size: 1.6rem;
-
     }
 
     .rules-section p, .rules-section ul li {
@@ -365,4 +377,13 @@ footer {
 /* Introduction: about.html */
 .introduction {
     margin-bottom: 20px;
+}
+
+.introduction p {
+    line-height: 1.4;
+}
+
+/* scroll bar always shows */
+html {
+    overflow-y: scroll;
 }
