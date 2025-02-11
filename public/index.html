@@ -1,65 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Lil Rockstars Racing Website" />
+  <link rel="apple-touch-icon" href="/logo192.png" />
+  <title>Lil Rockstars Racing</title>
+  <link rel="stylesheet" href="/lrr-home.css">
+</head>
+<body>
+<!-- Header Section -->
+<header class="hero">
+  <div class="overlay">
+    <h1 class="hero-title">Building Champions One Lap at a Time!</h1>
+  </div>
+</header>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <link rel="stylesheet" href="lrr-home.css">
-    <title>LilRockStarsRacing</title>
-  </head>
-  <header>
-    <div>
-      <nav class="navbar">
-        <div class="navbar-container">
-          <a href="/" class="navbar-text">
-            <p>Building Champions one lap at a time!</p>
-          </a>
-          <ul class="navbar-menu">
-            <li><a href="/" class="navbar-link">Home</a></li>
-            <li><a href="About" class="navbar-link">About</a></li>
-            <li><a href="Events" class="navbar-link">Events</a></li>
-            <li><a href="Results" class="navbar-link">Results</a></li>
-            <li><a href="Contact" class="navbar-link">Contact Us</a></li>
-          </ul>
-        </div>
-      </nav>
+<!-- Navigation Section -->
+<nav class="navbar">
+  <ul class="navbar-menu">
+    <li><a href="/" class="navbar-link">Home</a></li>
+    <li><a href="/html/about.html" class="navbar-link">About</a></li>
+    <li><a href="/html/events.html" class="navbar-link">Events</a></li>
+    <!--  <li><a href="/html/results.html" class="navbar-link">Results</a></li> -->
+    <!--  <li><a href="/html/gallery.html" class="navbar-link">Gallery</a></li> -->
+    <li><a href="/html/contact.html" class="navbar-link">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Main Content Section -->
+<main>
+  <section class="about">
+    <h2>Welcome</h2>
+    <p>
+      Founded in 2023, the <b><em><u>Lil Rockstars Juicebox / Snackpack Series</u></em></b> began as part of the original
+      Juicebox division in Florida before establishing its roots in Fayetteville, NC.
+    </p>
+    <p>
+      Our journey began with just 25 drivers at our first race. Today, we are proud to have grown to a
+      roster of over 85 racers, ranging in ages from 3 to 7!
+    </p>
+    <p>
+      Our series is about more than just racing. We emphasize the belief that <b><em>“God is #1”</em></b>, no matter
+      where we finish on the track. We also value the importance of family and friendships, celebrating every
+      victory—big or small.
+    </p>
+    <p>
+      And of course, we all strive for the big prize 🏆!
+    </p>
+    <p>
+      Our mission is simple and clear: to <b><em>Build Champions One Lap at a Time!</em></b>
+    </p>
+
+  </section>
+
+  <!--
+  <section class="featured-events">
+    <h2>Upcoming Events</h2>
+    <div class="event-card">
+      <h3>Spring Cup</h3>
+      <p>Date: June 15, 2025</p>
+      <p>Location: Lil Rockstars Track</p>
+      <a href="register.html" class="btn">Register Now</a>
     </div>
-  </header>
-  <body>
+    <div class="event-card">
+      <h3>Summer Sprints</h3>
+      <p>Date: July 20, 2025</p>
+      <p>Location: City Park</p>
+      <a href="register.html" class="btn">Register Now</a>
+    </div>
+  </section>-->
+</main>
 
-  <h1>Lil Rockstars Juicebox / Snackpack Series </h1>
-
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+<!-- Footer Section -->
+  <footer>
+    <p>&copy; 2025 Lil Rockstars Racing. All rights reserved.</p>
+  </footer>
+</body>
 </html>
