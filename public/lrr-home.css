@@ -113,7 +113,13 @@ body {
 /* Events Section */
 
 .event-heading h1 {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
+    color: chartreuse;
+    background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent black background */
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    font-family: Arial, sans-serif !important;
 }
 
 .events-container {
