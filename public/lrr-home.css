@@ -144,6 +144,12 @@ body {
 
 }
 
+.next-event-card {
+    border: 3px solid chartreuse; /* Green Border */
+    font-weight: bold;
+    background: aliceblue;
+}
+
 .event-card h3 {
     color: #f47c20;
     margin-bottom: 10px;
