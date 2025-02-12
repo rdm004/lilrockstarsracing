@@ -1,0 +1,148 @@
+/* ====== General Reset ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* ====== Navigation ====== */
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.navbar-link {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+}
+
+.navbar-link:hover {
+    background-color: #f47c20;
+    border-radius: 5px;
+}
+
+/* ====== Footer ====== */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    font-size: 0.9rem;
+}
+
+/* ====== Contact Section ====== */
+.contact-page {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.contact-info {
+    flex: 2;
+    padding: 10px;
+}
+
+.contact-aside {
+    flex: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-left: 2px solid #ccc;
+    text-align: center;
+}
+.contact-item {
+    margin: 18px 0;
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.contact-item:last-child {
+    border-bottom: none;
+}
+
+.contact-info a {
+    color: #f47c20;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-info p {
+    padding-top: 8px;
+}
+
+.contact-info h2 {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* ====== Facebook Button ====== */
+.facebook-button {
+    display: inline-flex;
+    align-items: center;
+    background-color: #1877f2;
+    color: white !important;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.facebook-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.facebook-button:hover {
+    background-color: #145dbf;
+}
+
+/* ====== Indentation and Formatting ====== */
+.indented {
+    display: block;
+    margin-left: 20px;
+}
+
+.indent-bullets {
+    padding-left: 40px;
+}
+
+.indent-bullets li {
+    text-indent: 0;
+    margin-bottom: 5px;
+}
+
+/* ====== Scroll Bar Always Visible ====== */
+html {
+    overflow-y: scroll;
+}
