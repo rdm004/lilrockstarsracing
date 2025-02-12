@@ -14,6 +14,7 @@
     .navbar-menu li {
         flex: 1; /* Each item takes equal space */
         text-align: center;
+        border: 1px solid red;
     }
 
     .hero-title {
