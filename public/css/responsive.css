@@ -7,7 +7,7 @@
         flex-direction: row;  /* Ensure it's in a row */
         justify-content: center; /* Space items evenly */
         align-items: center; /* Align vertically */
-        gap: 100%; /* Adjust spacing between items */
+        gap: 25px; /* Adjust spacing between items */
         padding: 0;
         list-style: none; /* Remove default bullets */
     }
