@@ -155,3 +155,9 @@
 .introduction p {
     line-height: 1.4;
 }
+
+.no-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
