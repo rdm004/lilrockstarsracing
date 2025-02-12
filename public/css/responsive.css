@@ -3,7 +3,7 @@
 /* Small Screens (Tablets, 768px and below) */
 @media (max-width: 768px) {
     .navbar-menu {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
     }
 
