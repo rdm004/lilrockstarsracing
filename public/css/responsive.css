@@ -3,8 +3,13 @@
 /* Small Screens (Tablets, 768px and below) */
 @media (max-width: 768px) {
     .navbar-menu {
-        flex-direction: row;
-        align-items: center;
+        display: flex;
+        flex-direction: row;  /* Ensure it's in a row */
+        justify-content: center; /* Space items evenly */
+        align-items: center; /* Align vertically */
+        gap: 15px; /* Adjust spacing between items */
+        padding: 0;
+        list-style: none; /* Remove default bullets */
     }
 
     .hero-title {
