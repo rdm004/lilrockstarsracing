@@ -28,6 +28,16 @@
 
 /* Extra Small Screens (Phones, 480px and below) */
 @media (max-width: 480px) {
+
+    .navbar-menu {
+        display: flex;
+        flex-direction: row;  /* Ensure it's in a row */
+        justify-content: center; /* Space items evenly */
+        align-items: center; /* Align vertically */
+        gap: 25px; /* Adjust spacing between items */
+        padding: 0;
+        list-style: none; /* Remove default bullets */
+    }
     .hero {
         height: 150px; /* Reduce hero height */
     }
