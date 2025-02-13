@@ -105,7 +105,6 @@ body {
             violet
     );
     background-size: 400% 100%;
-    text-decoration: underline;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: rainbow 2s linear infinite;
