@@ -43,6 +43,7 @@ body {
     overflow: hidden;
     align-items: flex-start;
     justify-content: center;
+
 }
 
 .welcome-image img {
@@ -51,6 +52,7 @@ body {
     object-fit: fill;
     border-radius: 10px;
     overflow: hidden;
+;
 
 
 }
@@ -69,6 +71,8 @@ body {
     border-radius: 10px;
     margin-top: 10px;
     border: black solid 1px;
+    display: inline-block;
+
 }
 
 .welcome-sponsor-text {
