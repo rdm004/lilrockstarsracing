@@ -1,34 +1,27 @@
-/* ====== About Section ====== */
-.about {
-    padding: 20px;
-    text-align: center;
-    background-color: #fff;
+/* ====================================== Welcome Section (Homepage) ====================================== */
+
+body {
+
+}
+
+.welcome-container {
+    display: flex;
+    gap: 10px;
+    max-width: 100%;
     margin: 20px auto;
-    max-width: 800px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center; /* Aligns the images to the center */
 }
 
-.about h2 {
-    color: #f47c20;
-    margin-bottom: 15px;
-    font-size: 40px;
-}
-
-.about p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-}
-
-/* ====== Welcome Section (Homepage) ====== */
 .welcome {
-    max-width: 800px;
-    margin: 40px auto;
+    flex: 1;
     padding: 30px;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    border: #145dbfcc solid;
 }
 
 .welcome h2 {
@@ -42,7 +35,116 @@
     line-height: 1.6;
 }
 
-/* ====== Events Section ====== */
+.welcome-image {
+    display: flex;
+    width: 400px; /* Or the size you want */
+    height: 300px; /* Adjust this as needed */
+    border-radius: 10px;
+    overflow: hidden;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.welcome-image img {
+    width: 100%;
+    height: 300px;
+    object-fit: fill;
+    border-radius: 10px;
+    overflow: hidden;
+
+
+}
+
+.welcome-sponsor-top {
+    font-size: 2em;
+    color: #145dbf;
+    text-align: center;
+    margin: 5px;
+    text-decoration: #f47c20 underline;
+}
+
+.welcome-sponsor-top img {
+    width: 300px; /* Adjust as necessary */
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: black solid 1px;
+}
+
+.welcome-sponsor-text {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 10px;
+    color: black;
+
+}
+
+.welcome-sponsor-links {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column; /* Stack vertically */
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.sponsor-logo {
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px; /* Rounds the corners */
+}
+
+.rainbow-text {
+    background-image: linear-gradient(
+            45deg,
+            red,
+            orange,
+            green,
+            blue,
+            indigo,
+            violet
+    );
+    background-size: 400% 100%;
+    text-decoration: underline;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow 2s linear infinite;
+}
+
+@keyframes rainbow {
+    0% { background-position: 0 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+/* ======================================= Facebook Button ========================================== */
+.facebook-button {
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    background-color: #1877f2;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border: none;
+    margin-bottom: 4px;
+}
+
+.facebook-button img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+
+}
+
+.facebook-button:hover {
+    background-color: #145dbf;
+}
+
+/* ====================================== Events Section ====================================== */
 .events-container {
     display: flex;
     flex-wrap: wrap;
@@ -105,20 +207,52 @@
     display: inline-block;
     text-align: center;
 }
-/* ====== Special Styling for Next Event ====== */
+/* ====================================== Special Styling for Next Event ====================================== */
 .next-event-card {
     border: 2px solid #00ff00 !important; /* Green border */
 }
 
-/* ====== Rules Section ====== */
+/* ====================================== Rules Section ====================================================== */
+.rules-page-layout {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: flex-start;
+
+}
+
+.sticky-image {
+    /*position: sticky;*/
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    top: 100px;
+}
+
+.sticky-image img {
+    width: 400px;
+    height: auto;
+    border-radius: 10px;
+    object-fit: contain;
+    border: black solid 1px;
+}
+
+.left {
+    margin-right: 5px;
+}
+
+
+
 .rules-container {
-    max-width: 900px;
-    margin: 20px auto;
+    flex-grow: 1;
+    max-width: 1000px;
+    /*margin: 20px auto;*/
     background: #fff;
-    padding: 20px;
+    padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     color: black;
+    border: #d9534fCC solid;
 }
 
 .rules-section h2 {
@@ -147,7 +281,7 @@
     text-align: center;
 }
 
-/* ====== Intro Section-Home Page ====== */
+/* ====================================== Intro Section-Home Page ====================================== */
 .introduction {
     margin-bottom: 20px;
 }
@@ -160,4 +294,79 @@
     list-style: none;
     padding: 0;
     margin: 0;
+}
+
+/* ====================================== Contact Section ====================================== */
+.contact-page {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+
+}
+
+.contact-info {
+    flex: 2;
+    padding: 10px;
+    border: #1877f255 solid 2px;
+    border-radius: 8px;
+}
+
+.contact-aside {
+    flex: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 2px solid #f47c2055;
+    text-align: center;
+
+}
+.contact-item {
+    margin: 18px 0;
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.contact-item:last-child {
+    border-bottom: none;
+}
+
+.contact-info a {
+    color: #f47c20;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-info p {
+    padding-top: 8px;
+}
+
+.contact-info h2 {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* ====================================== Indentation and Formatting ====================================== */
+.indented {
+    display: block;
+    margin-left: 20px;
+}
+
+.indent-bullets {
+    padding-left: 40px;
+}
+
+.indent-bullets li {
+    text-indent: 0;
+    margin-bottom: 5px;
 }
