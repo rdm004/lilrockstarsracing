@@ -10,6 +10,13 @@ body {
     background-color: #f4f4f4;
     color: #333;
     border: #f47c20 solid 2px;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* ====================================== Navigation ====================================== */
