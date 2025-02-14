@@ -47,7 +47,7 @@ footer {
     padding: 10px;
     background-color: #333;
     color: white;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-family: Arial, sans-serif !important;
 }
 
@@ -65,12 +65,12 @@ footer {
     flex-grow: 1;
 }
 
-.footer-sponsor {
-    width: 150px;
-    height: auto;
-    border-radius: 8px;
-    border: #cccccc solid 1px;
-}
+/*.footer-sponsor {*/
+/*    width: 150px;*/
+/*    height: auto;*/
+/*    border-radius: 8px;*/
+/*    border: #cccccc solid 1px;*/
+/*}*/
 
 #construction {
     color: red;
