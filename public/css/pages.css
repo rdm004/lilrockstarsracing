@@ -1,8 +1,127 @@
-/* ====================================== Welcome Section (Homepage) ====================================== */
+.warning {
+    color: #d9534f;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+}
 
-body {
+/* ====================================== Contact Section ====================================== */
+
+.contact-page {
+    padding: 20px;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    overflow: hidden;
+}
+
+.contact-info {
+    flex: 2;
+    padding: 10px;
+    border: #1877f255 solid 2px;
+    border-radius: 8px;
+    max-width: 60%;
+    overflow: hidden;
+    overflow-wrap: break-word;
+}
+
+.contact-aside {
+    flex: 1;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 2px solid #f47c2055;
+    text-align: center;
+    border-radius: 8px;
 
 }
+
+.contact-item {
+    margin: 18px 0;
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.contact-aside p {
+    padding-bottom: 10px;
+}
+
+.contact-item:last-child {
+    border-bottom: none;
+}
+
+.contact-info a {
+    color: #f47c20;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-info p {
+    padding-top: 8px;
+}
+
+.contact-info h2 {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.contact-info a:hover {
+    text-decoration: underline !important;
+}
+
+/* ======================================= Facebook Button ========================================== */
+.facebook-button {
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    background-color: #1877f2;
+    color: white;
+    padding: 8px 12px;
+    max-width: 40%;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 4px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.facebook-button img {
+    max-width: 40px;
+    max-height: 20px;
+    margin-right: 8px;
+
+}
+
+.facebook-button:hover {
+    background-color: #145dbf;
+}
+
+
+/* ====================================== Intro Section-Home Page ====================================== */
+
+.introduction {
+    margin-bottom: 10px;
+}
+
+.introduction p {
+    line-height: 1.4;
+}
+
+.no-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ====================================== Welcome Section (Homepage) ====================================== */
 
 .welcome-container {
     display: flex;
@@ -12,6 +131,7 @@ body {
     padding: 10px;
     justify-content: space-between;
     align-items: center; /* Aligns the images to the center */
+
 }
 
 .welcome {
@@ -22,6 +142,7 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     border: #145dbfcc solid;
+
 }
 
 .welcome h2 {
@@ -31,7 +152,7 @@ body {
 }
 
 .welcome p {
-    font-size: 19px;
+    font-size: 20px;
     line-height: 1.6;
 }
 
@@ -47,11 +168,11 @@ body {
 }
 
 .welcome-image img {
-    width: 100%;
+    width: 80%;
     height: 300px;
     object-fit: fill;
     border-radius: 10px;
-    overflow: hidden;;
+    overflow: hidden;
 }
 
 
@@ -68,15 +189,15 @@ body {
 
 }
 
-.welcome-sponsor-top img {
-    width: 300px; /* Adjust as necessary */
-    height: auto;
-    border-radius: 10px;
-    margin-top: 10px;
-    border: black solid 1px;
-    display: inline-block;
+/*.welcome-sponsor-top img {*/
+/*    width: 300px; !* Adjust as necessary *!*/
+/*    height: auto;*/
+/*    border-radius: 10px;*/
+/*    margin-top: 10px;*/
+/*    border: black solid 1px;*/
+/*    display: inline-block;*/
 
-}
+
 
 .welcome-sponsor-text {
     text-align: center;
@@ -123,32 +244,68 @@ body {
     100% { background-position: 0 50%; }
 }
 
-/* ======================================= Facebook Button ========================================== */
-.facebook-button {
+/* ====================================== Rules Section ====================================================== */
+.rules-page-layout {
     display: flex;
-    font-weight: bold;
-    align-items: center;
-    background-color: #1877f2;
-    color: white;
-    padding: 8px 12px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-    border: none;
-    margin-bottom: 4px;
-}
-
-.facebook-button img {
-    max-width: 40px;
-    max-height: 20px;
-    margin-right: 8px;
+    justify-content: center;
+    gap: 20px;
+    align-items: flex-start;
+    margin-top: 20px;
 
 }
 
-.facebook-button:hover {
-    background-color: #145dbf;
+.rules-image img {
+    display: flex;
+    width: 400px;
+    height: auto;
+    border-radius: 10px;
+    object-fit: contain;
+    border: black solid 1px;
 }
+
+.left  {
+    margin-right: auto;
+    margin-left: auto;
+
+}
+.right {
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+.rules-container {
+    flex-grow: 1;
+    max-width: 1000px;
+    /*margin: 20px auto;*/
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: black;
+    border: #d9534fCC solid 5px;
+}
+
+.rules-section h2 {
+    color: #f47c20;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #f47c20;
+    padding-bottom: 5px;
+}
+
+.rules-section p,
+.rules-section ul li {
+    font-size: 1.2rem;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.rules-section p, li:last-child {
+    /*margin-bottom: 10px;*/
+}
+
+
 
 /* ====================================== Events Section ====================================== */
 .events-container {
@@ -219,159 +376,9 @@ body {
     border: 2px solid #00ff00 !important; /* Green border */
 }
 
-/* ====================================== Rules Section ====================================================== */
-.rules-page-layout {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    align-items: flex-start;
-    margin-top: 20px;
-
-}
-
-.rules-image img {
-    display: flex;
-    width: 400px;
-    height: auto;
-    border-radius: 10px;
-    object-fit: contain;
-    border: black solid 1px;
-}
-
-.left  {
-    margin-right: auto;
-    margin-left: auto;
-
-}
-.right {
-    margin-right: auto;
-    margin-left: auto;
-
-}
 
 
 
-.rules-container {
-    flex-grow: 1;
-    max-width: 1000px;
-    /*margin: 20px auto;*/
-    background: #fff;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    color: black;
-    border: #d9534fCC solid;
-}
-
-.rules-section h2 {
-    color: #f47c20;
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #f47c20;
-    padding-bottom: 5px;
-}
-
-.rules-section p,
-.rules-section ul li {
-    font-size: 1.2rem;
-    color: black;
-    margin-bottom: 10px;
-}
-
-.rules-section p, li:last-child {
-    /*margin-bottom: 10px;*/
-
-
-    .warning {
-        color: #d9534f;
-        font-weight: bold;
-        font-size: 1.2rem;
-        text-align: center;
-        justify-content: center;
-        outline: #f47c20 solid 5px;
-    }
-
-    /* ====================================== Intro Section-Home Page ====================================== */
-
-    .introduction {
-        margin-bottom: 20px;
-    }
-
-    .introduction p {
-        line-height: 1.4;
-    }
-
-    .no-bullets {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    /* ====================================== Contact Section ====================================== */
-
-    .contact-page {
-        padding: 20px;
-        max-width: 100%;
-        margin: 0 auto;
-    }
-
-    .contact-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 30px;
-
-
-    }
-
-    .contact-info {
-        flex: 2;
-        padding: 10px;
-        border: #1877f255 solid 2px;
-        border-radius: 8px;
-        outline: #f47c20 solid 50px;
-    }
-
-    .contact-aside {
-        flex: 1;
-        padding: 20px;
-        background-color: #f9f9f9;
-        border: 2px solid #f47c2055;
-        text-align: center;
-        outline: #f47c20 solid 50px;
-
-    }
-
-    .contact-item {
-        margin: 18px 0;
-        font-size: 1.2rem;
-        padding-bottom: 10px;
-        border-bottom: 20px solid #ccc;
-
-    }
-
-    .contact-item:last-child {
-        border-bottom: none;
-    }
-
-    .contact-info a {
-        color: #f47c20;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .contact-info p {
-        padding-top: 8px;
-    }
-
-    .contact-info h2 {
-        text-align: center;
-        padding-bottom: 10px;
-    }
-
-    .contact-info a:hover {
-        text-decoration: underline;
-    }
 
     /* ====================================== Indentation and Formatting ====================================== */
 
@@ -388,4 +395,3 @@ body {
         text-indent: 0;
         margin-bottom: 5px;
     }
-}
