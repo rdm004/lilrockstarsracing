@@ -9,16 +9,20 @@
 
 .contact-page {
     padding: 20px;
-    max-width: 50%;
+    /*max-width: 70%;*/
     margin: 0 auto;
 }
 
 .contact-container {
     display: flex;
+    max-width: 70%;
     justify-content: space-between;
     align-items: flex-start;
     gap: 30px;
     overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 .contact-info {
