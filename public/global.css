@@ -11,13 +11,25 @@ body {
     color: #333;
     border: #f47c20 solid 2px;
     overflow-x: hidden;
+    /*background-image: url("./website-images/background-image.png");*/
+    /*background-size: cover;*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: center;*/
+    /*opacity: 1;*/
+
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
+.background-image {
+
+    /*opacity: 1;*/
+
 }
+
+/*img {*/
+/*    max-width: 100%;*/
+/*    height: auto;*/
+/*    display: block;*/
+/*}*/
 
 /* ====================================== Navigation ====================================== */
 .navbar {
