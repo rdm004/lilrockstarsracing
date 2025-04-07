@@ -52,12 +52,11 @@ body {
     text-decoration: none;
     padding: 5px 10px;
     transition: background-color 0.3s;
-    background: #f47c20;
-    border-radius: 5px;
+       border-radius: 5px;
 }
 
 .navbar-link:hover {
-    background-color: #61dafb;
+    background-color: #f47c20;
     border-radius: 5px;
 }
 
