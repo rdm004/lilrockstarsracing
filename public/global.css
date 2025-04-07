@@ -43,7 +43,7 @@ body {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 25px;
+    gap: 55px;
 
 }
 
@@ -52,10 +52,12 @@ body {
     text-decoration: none;
     padding: 5px 10px;
     transition: background-color 0.3s;
+    background: #f47c20;
+    border-radius: 5px;
 }
 
 .navbar-link:hover {
-    background-color: #f47c20;
+    background-color: #61dafb;
     border-radius: 5px;
 }
 

@@ -151,8 +151,9 @@
 
 .welcome h2 {
     color: #f47c20;
-    font-size: 40px;
+    font-size: 44px;
     margin-bottom: 20px;
+    letter-spacing: 2px;
 }
 
 .welcome p {
