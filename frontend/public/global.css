@@ -60,6 +60,18 @@ body {
     border-radius: 5px;
 }
 
+/* keep navbar links white even after you click them */
+.navbar-link:link,
+.navbar-link:visited {
+    color: white;
+    text-decoration: none;
+}
+
+/* hover/focus can stay the same (or tweak as you like) */
+.navbar-link:hover,
+.navbar-link:focus {
+    background-color: #f47c20;
+}
 /* ====================================== Scroll Bar Always Visible ====================================== */
 html {
     overflow-y: scroll;

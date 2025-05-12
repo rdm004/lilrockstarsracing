@@ -1,0 +1,17 @@
+.media-gallery {
+    padding: 2rem;
+    text-align: center;
+}
+.media-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+.media-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.gallery-img {
+    width: 100%;
+    border-radius: 12px;
+}
