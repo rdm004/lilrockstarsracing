@@ -22,3 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .vercel
+
+# ignore Supabase client with secret key
+src/supabaseClient.js
+media-react/src/supabaseClient.js
