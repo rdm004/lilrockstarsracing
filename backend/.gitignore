@@ -45,3 +45,5 @@ build/
 
 # Ignore config containing secrets
 src/main/resources/config.properties
+# keep credentials out of Git
+backend/src/main/resources/application.properties
