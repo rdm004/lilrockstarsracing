@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Nav from './components/Nav';
+
 import MediaGallery from './components/MediaGallery';
 
 
@@ -8,18 +8,10 @@ function Home() {
     return <h1>Welcome to Lil Rockstars</h1>;
 }
 
-function App() {
+export default function App() {
     return (
-        <Router>
-            {/* Render the nav on every route */}
-            <Nav />
-
-            <Routes>
-                {/* Media Route */}
-                <Route path="/media" element={<MediaGallery />} />
-            </Routes>
-        </Router>
+        <>
+            <MediaGallery />
+        </>
     );
 }
-
-export default App;

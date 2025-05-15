@@ -1,29 +1,31 @@
+// Registration.java
 package com.lilrockstars.backend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 @Entity
 public class Registration {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long registrationId;
 
-    private LocalDateTime timestamp;
+    @ManyToOne(optional=false)
+    @JoinColumn(name="racer_id")
+    private Racer racer;
 
-    @ManyToOne
-    @JoinColumn(name = "event_id")
+    @ManyToOne(optional=false)
+    @JoinColumn(name="event_id")
     private Event event;
 
-    @ManyToOne
-    @JoinColumn(name = "racer_id")
-    private Racer racer;
+    private LocalDateTime timestamp = LocalDateTime.now();
+
+    public void cancel() {
+
+    }
 }

@@ -1,18 +1,16 @@
+// Racer.java
 package com.lilrockstars.backend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 @Entity
 public class Racer {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long racerId;
@@ -20,13 +18,14 @@ public class Racer {
     private String name;
     private int age;
 
-    @ManyToOne
-    @JoinColumn(name = "parent_id")
+    @ManyToOne(optional=false)
+    @JoinColumn(name="parent_id")
     private Parent parent;
 
-    @OneToMany(mappedBy = "racer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "racer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Registration> registrations;
 
-    @OneToMany(mappedBy = "racer", cascade = CascadeType.ALL)
-    private List<Media> media;
+    public String getDisplayName() {
+        return name + " (age " + age + ")";
+    }
 }

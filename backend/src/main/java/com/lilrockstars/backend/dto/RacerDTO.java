@@ -1,10 +1,12 @@
 package com.lilrockstars.backend.dto;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@Data
+@Getter
+@AllArgsConstructor
 public class RacerDTO {
-    private Long id;
+    private Long racerId;
     private String name;
     private int age;
 }

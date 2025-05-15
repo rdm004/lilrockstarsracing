@@ -1,14 +1,12 @@
 package com.lilrockstars.backend.entities;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 @Entity
+@DiscriminatorValue("ADMIN")
 public class Administrator extends Person {
-    // Business logic should live in a service, not here.
 }

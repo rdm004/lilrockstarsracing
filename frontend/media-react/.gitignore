@@ -1,3 +1,6 @@
+# media-react/.gitignore
+.env
+
 # Logs
 logs
 *.log
@@ -24,3 +27,4 @@ dist-ssr
 *.sw?
 src/supabaseClient.js
 media-react/src/supabaseClient.js
+

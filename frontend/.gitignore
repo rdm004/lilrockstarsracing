@@ -26,3 +26,6 @@ yarn-error.log*
 # ignore Supabase client with secret key
 src/supabaseClient.js
 media-react/src/supabaseClient.js
+
+# local environment variables
+.env

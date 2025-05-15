@@ -1,11 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './MediaGallery.css';
-import MediaGallery from "./components/MediaGallery.jsx";
+// Media-main.jsx
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <MediaGallery />
-    </React.StrictMode>
-);
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';            // or your top‐level component
+import './components/MediaGallery.css';
+createRoot(document.getElementById('root')).render(<App />);
