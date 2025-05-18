@@ -3,38 +3,42 @@ package com.lilrockstars.backend.controllers;
 import com.lilrockstars.backend.entities.Media;
 import com.lilrockstars.backend.service.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/media")
+@CrossOrigin
 public class MediaController {
 
+    private final MediaService mediaService;
+
     @Autowired
-    private MediaService mediaService;
-
-    @GetMapping
-    public List<Media> getAllMedia() {
-        return mediaService.getAllMedia();
+    public MediaController(MediaService mediaService) {
+        this.mediaService = mediaService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Media> getMediaById(@PathVariable Long id) {
-        return mediaService.getMediaById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Media> upload(@RequestParam("file") MultipartFile file,
+                                        @RequestParam("eventId") Long eventId) {
+        Media m = mediaService.store(file, eventId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(m);
     }
 
-    @PostMapping
-    public Media createMedia(@RequestBody Media media) {
-        return mediaService.createMedia(media);
+    @GetMapping("/{eventId}")
+    public List<Media> listForEvent(@PathVariable Long eventId) {
+        return mediaService.getByEvent(eventId);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMedia(@PathVariable Long id) {
-        mediaService.deleteMedia(id);
-        return ResponseEntity.noContent().build();
+    @GetMapping("/raw/{mediaId}")
+    public ResponseEntity<byte[]> getRawMedia(@PathVariable Long mediaId) {
+        Media m = mediaService.getById(mediaId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG); // or dynamically check content type
+        headers.setContentDisposition(ContentDisposition.inline().filename(m.getFileName()).build());
+        return new ResponseEntity<>(m.getData(), headers, HttpStatus.OK);
     }
 }

@@ -3,15 +3,15 @@ package com.lilrockstars.backend.controllers;
 import com.lilrockstars.backend.dto.CreateRacerRequest;
 import com.lilrockstars.backend.dto.RacerDTO;
 import com.lilrockstars.backend.service.RacerService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/racers")
-@CrossOrigin
 public class RacerController {
 
     private final RacerService racerService;
@@ -21,13 +21,12 @@ public class RacerController {
         this.racerService = racerService;
     }
 
-    @GetMapping
-    public List<RacerDTO> getAll() {
-        return racerService.getAllRacers();
+    @GetMapping("/my-racers")
+    public ResponseEntity<List<RacerDTO>> myRacers(Authentication auth) {
+        return ResponseEntity.ok(racerService.listMyRacers(auth));
     }
-
     @PostMapping
-    public RacerDTO create(@Valid @RequestBody CreateRacerRequest req) {
-        return racerService.createRacer(req);
-    }
-}
+    public ResponseEntity<RacerDTO> create(@RequestBody CreateRacerRequest req, Authentication auth) {
+        RacerDTO created = racerService.create(req, auth);
+        return ResponseEntity.ok(created);
+    }}

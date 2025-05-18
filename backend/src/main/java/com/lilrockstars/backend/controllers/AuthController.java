@@ -1,55 +1,74 @@
 package com.lilrockstars.backend.controllers;
 
 import com.lilrockstars.backend.dto.LoginDTO;
-import com.lilrockstars.backend.dto.RegisterDTO;
-import com.lilrockstars.backend.entities.Parent;
 import com.lilrockstars.backend.entities.Person;
+import com.lilrockstars.backend.entities.Role;
 import com.lilrockstars.backend.repositories.PersonRepository;
+import com.lilrockstars.backend.util.JwtUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin
 public class AuthController {
 
-    private final PersonRepository personRepo;
-    private final PasswordEncoder passwordEncoder;
-    private final AuthenticationManager authManager;
+    @Autowired private PersonRepository personRepo;
+    @Autowired private AuthenticationManager authManager;
+    @Autowired private PasswordEncoder passwordEncoder;
+    @Autowired private JwtUtil jwtUtil;
 
-    @Autowired
-    public AuthController(PersonRepository personRepo,
-                          PasswordEncoder passwordEncoder,
-                          AuthenticationManager authManager) {
-        this.personRepo = personRepo;
-        this.passwordEncoder = passwordEncoder;
-        this.authManager = authManager;
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@Valid @RequestBody LoginDTO dto) {
+        Authentication auth = authManager.authenticate(
+                new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
+        );
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        String jwt = jwtUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(),
+                userDetails.getAuthorities().stream().map(a -> a.getAuthority()).toList()));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Person> register(@Valid @RequestBody RegisterDTO dto) {
-        if (personRepo.existsByEmail(dto.getEmail())) {
-            return ResponseEntity.badRequest().build();
+    public ResponseEntity<?> register(@Valid @RequestBody com.lilrockstars.backend.dto.UserRegisterDTO dto) {
+        if (personRepo.findByEmail(dto.getEmail()).isPresent()) {
+            return ResponseEntity.status(409).body("User already exists");
         }
-        Parent p = new Parent();
-        p.setFirstName(dto.getFirstName());
-        p.setLastName(dto.getLastName());
-        p.setEmail(dto.getEmail());
-        p.setPassword(passwordEncoder.encode(dto.getPassword()));
-        Person saved = personRepo.save(p);
-        return ResponseEntity.ok(saved);
+        Person person = new Person();
+        person.setFirstName(dto.getFirstName());
+        person.setLastName(dto.getLastName());
+        person.setEmail(dto.getEmail());
+        person.setPassword(passwordEncoder.encode(dto.getPassword()));
+        person.setRole(Role.PARENT); // Ensure role is passed or default to PARENT
+        personRepo.save(person);
+        return ResponseEntity.ok("User registered");
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Void> login(@Valid @RequestBody LoginDTO dto) {
-        authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
-        );
-        return ResponseEntity.ok().build();
+    // JWT response DTO
+    private static class JwtResponse {
+        private String token;
+        private String username;
+        private List<String> roles;
+
+        public JwtResponse(String token, String username, List<String> roles) {
+            this.token = token;
+            this.username = username;
+            this.roles = roles;
+        }
+
+        public String getToken() { return token; }
+        public String getUsername() { return username; }
+        public List<String> getRoles() { return roles; }
     }
 }

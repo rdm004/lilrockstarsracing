@@ -8,18 +8,22 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter @Setter @NoArgsConstructor
 @Entity
+@Getter @Setter @NoArgsConstructor
 public class Media {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long mediaId;
 
     @ManyToOne(optional=false)
     @JoinColumn(name="event_id")
     private Event event;
 
-    private String url;
+    private String fileName;
+
+    @Lob
+    @Column(name="data", columnDefinition="BYTEA")
+    private byte[] data;
+
     private String caption;
     private LocalDateTime uploadedAt = LocalDateTime.now();
 }

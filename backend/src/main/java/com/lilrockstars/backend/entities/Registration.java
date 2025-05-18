@@ -15,17 +15,16 @@ public class Registration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long registrationId;
 
-    @ManyToOne(optional=false)
-    @JoinColumn(name="racer_id")
+    @ManyToOne @JoinColumn(name="racer_id")
     private Racer racer;
 
-    @ManyToOne(optional=false)
-    @JoinColumn(name="event_id")
+    @ManyToOne @JoinColumn(name="event_id")
     private Event event;
+
+    @Enumerated(EnumType.STRING)
+    private RegistrationStatus status = RegistrationStatus.PENDING;
 
     private LocalDateTime timestamp = LocalDateTime.now();
 
-    public void cancel() {
-
-    }
+    // …
 }

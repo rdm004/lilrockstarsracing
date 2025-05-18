@@ -1,3 +1,4 @@
+// src/main/java/com/lilrockstars/backend/entities/Person.java
 package com.lilrockstars.backend.entities;
 
 import jakarta.persistence.*;
@@ -7,8 +8,7 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "person")
 public class Person {
 
     @Id
@@ -27,11 +27,7 @@ public class Person {
     @Column(nullable = false)
     private String password;
 
-    /**
-     * Read‐only view of the discriminator column.
-     * Will be either Role.PARENT or Role.ADMIN.
-     */
-    @Column(name = "role", insertable = false, updatable = false)
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 }

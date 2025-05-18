@@ -6,27 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EventService {
 
+    private final EventRepository eventRepository;
+
     @Autowired
-    private EventRepository eventRepository;
-
-    public List<Event> getAllEvents() {
-        return eventRepository.findAll();
+    public EventService(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
     }
 
-    public Optional<Event> getEventById(Long id) {
-        return eventRepository.findById(id);
-    }
-
-    public Event createEvent(Event event) {
+    // Create/save an event
+    public Event create(Event event) {
         return eventRepository.save(event);
     }
 
-    public void deleteEvent(Long id) {
-        eventRepository.deleteById(id);
+    // Retrieve all events
+    public List<Event> getAllEvents() {
+        return eventRepository.findAll();
     }
 }
