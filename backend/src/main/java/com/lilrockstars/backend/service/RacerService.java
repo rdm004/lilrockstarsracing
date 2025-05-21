@@ -68,4 +68,10 @@ public class RacerService {
                 r.getAge()
         );
     }
+    public List<RacerDTO> getAll() {
+        return racerRepo.findAll()
+                .stream()
+                .map(this::toDto)
+                .toList();
+    }
 }

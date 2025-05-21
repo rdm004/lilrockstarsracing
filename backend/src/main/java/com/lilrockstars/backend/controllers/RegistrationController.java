@@ -1,4 +1,3 @@
-// src/main/java/com/lilrockstars/backend/controllers/RegistrationController.java
 package com.lilrockstars.backend.controllers;
 
 import com.lilrockstars.backend.dto.CreateRegistrationRequest;
@@ -22,6 +21,7 @@ public class RegistrationController {
         this.service = service;
     }
 
+    // Parents
     @PostMapping
     public ResponseEntity<EventRegistrationDTO> signUp(
             @RequestBody CreateRegistrationRequest req,
@@ -36,12 +36,20 @@ public class RegistrationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> cancel(
-            @PathVariable Long id,
-            Authentication auth
-    ) {
+    public ResponseEntity<?> cancel(@PathVariable Long id, Authentication auth) {
         service.cancel(id, auth);
         return ResponseEntity.noContent().build();
+    }
+
+    // Admin
+    @GetMapping("/all")
+    public ResponseEntity<List<EventRegistrationDTO>> getAll() {
+        return ResponseEntity.ok(service.getAll());
+    }
+
+    @GetMapping("/pending")
+    public ResponseEntity<List<EventRegistrationDTO>> pending() {
+        return ResponseEntity.ok(service.listPending());
     }
 
     @PutMapping("/{id}/approve")
@@ -50,8 +58,11 @@ public class RegistrationController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/pending")
-    public ResponseEntity<List<EventRegistrationDTO>> pending() {
-        return ResponseEntity.ok(service.listPending());
+    @PutMapping("/{id}/deny")
+    public ResponseEntity<?> deny(@PathVariable Long id) {
+        service.deny(id);
+        return ResponseEntity.ok().build();
     }
 }
+
+   

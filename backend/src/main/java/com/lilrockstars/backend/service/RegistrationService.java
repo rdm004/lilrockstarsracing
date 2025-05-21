@@ -22,17 +22,19 @@ public class RegistrationService  {
     private final RacerRepository        racerRepo;
     private final EventRepository        eventRepo;
     private final PersonRepository       personRepo;
+    private final RegistrationRepository registrationRepository;
 
     public RegistrationService(
             RegistrationRepository regRepo,
             RacerRepository racerRepo,
             EventRepository eventRepo,
-            PersonRepository personRepo
-    ) {
+            PersonRepository personRepo,
+            RegistrationRepository registrationRepository) {
         this.regRepo    = regRepo;
         this.racerRepo  = racerRepo;
         this.eventRepo  = eventRepo;
         this.personRepo = personRepo;
+        this.registrationRepository = registrationRepository;
     }
 
     /** Parent signs up a racer for an event */
@@ -122,5 +124,23 @@ public class RegistrationService  {
                 r.getRacer().getFirstName() + " " + r.getRacer().getLastName(),
                 r.getStatus().name()
         );
+    }
+    public List<EventRegistrationDTO> getAll() {
+        return registrationRepository.findAll()
+                .stream()
+                .map(this::toDto)
+                .toList();
+    }
+    public void deny(Long regId) {
+        Registration r = regRepo.findById(regId)
+                .orElseThrow(() -> new IllegalArgumentException("Registration not found"));
+        r.setStatus(RegistrationStatus.DENIED);
+        regRepo.save(r);
+    }
+    public void cancelAsAdmin(Long regId) {
+        Registration r = regRepo.findById(regId)
+                .orElseThrow(() -> new IllegalArgumentException("Registration not found"));
+        r.setStatus(RegistrationStatus.CANCELED);
+        regRepo.save(r);
     }
 }

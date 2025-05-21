@@ -2,6 +2,7 @@ package com.lilrockstars.backend.util;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -21,13 +22,16 @@ public class JwtUtil {
     }
 
     public String generateToken(UserDetails userDetails) {
+        Claims claims = Jwts.claims().setSubject(userDetails.getUsername());
+        claims.put("authorities", userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList()));
+
         return Jwts.builder()
-                .setSubject(userDetails.getUsername())
-                .claim("roles", userDetails.getAuthorities().stream()
-                        .map(auth -> auth.getAuthority()).collect(Collectors.toList()))
-                .setIssuedAt(new Date())
+                .setClaims(claims)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256) // ✅ Correct key object
                 .compact();
     }
 
@@ -36,7 +40,7 @@ public class JwtUtil {
     }
 
     public List<String> extractRoles(String token) {
-        return getClaims(token).get("roles", List.class);
+        return getClaims(token).get("authorities", List.class);
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
@@ -48,7 +52,7 @@ public class JwtUtil {
         return getClaims(token).getExpiration().before(new Date());
     }
 
-    private Claims getClaims(String token) {
+    public Claims getClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
                 .build()

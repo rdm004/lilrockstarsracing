@@ -3,9 +3,12 @@ package com.lilrockstars.backend.service;
 import com.lilrockstars.backend.entities.Person;
 import com.lilrockstars.backend.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -18,16 +21,18 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Person person = personRepo.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("No user with email: " + email));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Person person = personRepo.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        var authority = new SimpleGrantedAuthority("ROLE_" + person.getRole().name());
+        List<GrantedAuthority> authorities = List.of(
+                new SimpleGrantedAuthority("ROLE_" + person.getRole().name()) // <- KEY
+        );
 
-        return User.builder()
-                .username(person.getEmail())
-                .password(person.getPassword())
-                .roles(person.getRole().name())   // will map Role.ADMIN → ROLE_ADMIN, Role.PARENT → ROLE_PARENT
-                .build();
+        return new org.springframework.security.core.userdetails.User(
+                person.getEmail(),
+                person.getPassword(),
+                authorities
+        );
     }
 }

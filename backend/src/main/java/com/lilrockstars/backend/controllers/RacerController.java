@@ -29,4 +29,8 @@ public class RacerController {
     public ResponseEntity<RacerDTO> create(@RequestBody CreateRacerRequest req, Authentication auth) {
         RacerDTO created = racerService.create(req, auth);
         return ResponseEntity.ok(created);
+    }
+    @GetMapping("/all")
+    public List<RacerDTO> getAll() {
+        return racerService.getAll();
     }}

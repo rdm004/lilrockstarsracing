@@ -10,6 +10,8 @@
         <relativePath/>
     </parent>
 
+
+
     <groupId>com.lilrockstars</groupId>
     <artifactId>backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -109,6 +111,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.lilrockstars.backend.LilrockstarsApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
