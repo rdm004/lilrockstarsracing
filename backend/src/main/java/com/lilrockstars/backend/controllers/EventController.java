@@ -4,6 +4,7 @@ import com.lilrockstars.backend.entities.Event;
 import com.lilrockstars.backend.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,5 +29,13 @@ public class EventController {
     public ResponseEntity<Event> create(@RequestBody Event event) {
         Event saved = eventService.create(event);
         return ResponseEntity.ok(saved);
+
+
     }
+    @GetMapping
+    public ResponseEntity<List<Event>> getRootEvents() {
+        return getAll(); // ✅ just forward to /all logic
+    }
+
+
 }

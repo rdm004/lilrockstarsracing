@@ -11,7 +11,7 @@ const LoginForm = ({ onLogin }) => {
         try {
             const res = await api.post('/auth/login', { email, password });
             localStorage.setItem('jwt', res.data.token);
-            onLogin(); // Let App.jsx know we are logged in
+            onLogin();
         } catch (err) {
             alert('Login failed: ' + (err.response?.data || err.message));
         }

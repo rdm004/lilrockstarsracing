@@ -1,35 +1,22 @@
+// src/components/MediaGallery.jsx
 import React, { useEffect, useState } from 'react';
-import { supabase } from "../supabaseClient";
+import { supabase } from '../supabaseClient';
 import './MediaGallery.css';
 
 const MediaGallery = () => {
     const [images, setImages] = useState([]);
 
     useEffect(() => {
-        const imageFiles = [
-            'awards24.png',
-            'background-image.png',
-            'cars1.png',
-            'cars2.jpeg',
-            'cars3.png',
-            'checker-flags.jpg',
-            'checker-flags.png',
-            'juiceboxpink.png',
-            'juicebox.png',
-            'logo.jpg',
-            'rockstarslogo.png',
-            'snackpack.png'
-        ];
+        const fetchMedia = async () => {
+            const { data, error } = await supabase.from('media').select('media_id, caption, url');
+            if (error) {
+                console.error('Error loading media:', error);
+            } else {
+                setImages(data);
+            }
+        };
 
-        const imageUrls = imageFiles.map((filename) => {
-            return {
-                name: filename,
-                url: supabase.storage.from('lrr').getPublicUrl(filename).data.publicUrl,
-            };
-        });
-
-        console.log('Generated image URLs:', imageUrls);
-        setImages(imageUrls);
+        fetchMedia();
     }, []);
 
     return (
@@ -37,9 +24,9 @@ const MediaGallery = () => {
             <h2 className="gallery-title">Photo Gallery</h2>
             <div className="image-grid">
                 {images.map((img) => (
-                    <div key={img.name} className="image-card">
-                        <img src={img.url} alt={img.name} className="gallery-image" />
-                        <p className="image-caption">{img.name}</p>
+                    <div key={img.media_id} className="image-card">
+                        <img src={img.url} alt={img.caption} className="gallery-image" />
+                        <p className="image-caption">{img.caption}</p>
                     </div>
                 ))}
             </div>

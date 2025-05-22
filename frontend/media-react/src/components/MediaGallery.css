@@ -51,3 +51,31 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 10px 10px;
+
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 55px;
+
+}
+
+.navbar-link {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+}
+
+.navbar-link:hover {
+    background-color: #f47c20;
+    border-radius: 5px;
+}

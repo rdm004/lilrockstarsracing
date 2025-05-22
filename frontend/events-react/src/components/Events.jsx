@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import Nav from './Nav';
+
 import './Events.css';
 
 export default function Events() {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        fetch('/api/events')
+        fetch('/api/events/all')
             .then(r => {
                 if (!r.ok) throw new Error(r.statusText);
                 return r.json();
             })
             .then(data => {
-                // filter out past events
-                const upcoming = data
-                    .map(e => ({ ...e, date: new Date(e.date) }))
-                    .filter(e => e.date >= new Date())
+                console.log('✅ Raw data from API:', data);
+
+                const sorted = data
+                    .map(e => ({
+                        ...e,
+                        date: new Date(e.date)
+                    }))
                     .sort((a, b) => a.date - b.date);
-                setEvents(upcoming);
+
+                console.log('📅 Parsed and sorted events:', sorted);
+                setEvents(sorted);
             })
-            .catch(console.error);
+            .catch(err => {
+                console.error('❌ Fetch error:', err);
+            });
     }, []);
 
     const nextEvent = events[0] || null;
@@ -48,11 +55,13 @@ export default function Events() {
                                 </h3>
                                 <p className="event-date">
                                     Date:&nbsp;
-                                    {evt.date.toLocaleDateString(undefined, {
-                                        month: 'long',
-                                        day: 'numeric',
-                                        year: 'numeric',
-                                    })}
+                                    {evt.date instanceof Date
+                                        ? evt.date.toLocaleDateString(undefined, {
+                                            month: 'long',
+                                            day: 'numeric',
+                                            year: 'numeric',
+                                        })
+                                        : 'Invalid date'}
                                 </p>
                                 <p className="event-location">Location:&nbsp;{evt.location}</p>
                             </div>
