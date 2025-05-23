@@ -25,11 +25,9 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtFilter;
-    private final CustomUserDetailsService userDetailsService;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtFilter, CustomUserDetailsService userDetailsService) {
+    public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
-        this.userDetailsService = userDetailsService;
     }
 
     @Bean
@@ -52,24 +50,13 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Static frontend access
-                        .requestMatchers(
-                                "/", "/index.html", "/favicon.ico",
-                                "/css/**", "/js/**", "/images/**", "/static/**",
-                                "/html/**",              // ✅ static HTML pages
-                                "/media/**",             // ✅ allow access to media React build
-                                "/admin/**",             // ✅ allow access to admin React build
-                                "/events/**"             // ✅ allow access to events React build
-                        ).permitAll()
-
-                        // Public API endpoints
+                        .requestMatchers("/", "/index.html", "/favicon.ico",
+                                "/css/**", "/js/**", "/images/**", "/static/**", "/html/**",
+                                "/media/**", "/admin/**", "/events/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
-
-                        // Admin-protected endpoints
                         .requestMatchers(HttpMethod.GET, "/api/admin/registrations").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/admin/events").hasRole("ADMIN")
-
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -82,8 +69,9 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // ✅ This is the missing bean required by AuthController
     @Bean
-    public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 }
