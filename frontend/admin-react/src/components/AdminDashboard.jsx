@@ -1,20 +1,22 @@
 // src/components/AdminDashboard.jsx
 import React, { useEffect, useState } from 'react';
 import Nav from './Nav';
-import api from '../api/axios';
+
+import axios from 'axios';
 
 const AdminDashboard = () => {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        api.get('/events/all')
+        axios.get('https://lilrockstarsracing.onrender.com/api/events/all')
             .then(res => setEvents(res.data))
             .catch(err => console.error('Failed to fetch events', err));
     }, []);
 
     return (
         <>
-              <div className="admin-dashboard">
+            <Nav />
+            <div className="admin-dashboard">
                 <h1>🛠️ Admin Dashboard</h1>
                 <h2>Upcoming Events</h2>
                 <table border="1" cellPadding="8">

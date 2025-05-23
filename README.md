@@ -9,11 +9,11 @@ This web application allows:
 
 🚀 Tech Stack
 Layer	Tech
-Frontend	              HTML, CSS, JavaScript, React
+Frontend	          HTML, CSS, JavaScript, React
 Backend	              Java, Spring Boot
-Database	              Supabase (PostgreSQL)
+Database	          Supabase (PostgreSQL)
 Hosting	              Vercel (Frontend), Supabase (Backend DB)
-Domain  	              Cloudflare
+Domain  	          Cloudflare
 Auth	              JWT, Spring Security
 
 🔎 Features
