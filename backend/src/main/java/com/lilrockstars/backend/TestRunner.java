@@ -9,12 +9,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Component;
 import jakarta.annotation.PostConstruct;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
 @Component
 public class TestRunner {
+
 
     private final EventController eventController;
     private final RacerController racerController;
@@ -52,23 +52,25 @@ public class TestRunner {
             System.out.println("\n==== 🚀 Capstone Test Console ====");
             System.out.println("Choose an action:");
             System.out.println("[1] Create Event");
-            System.out.println("[2] Create Racer");
-            System.out.println("[3] Register Racer to Event");
-            System.out.println("[4] View Events");
-            System.out.println("[5] View Racers");
-            System.out.println("[6] View Registrations");
-            System.out.println("[7] Approve Registration (Admin)");
+            System.out.println("[2] Create Person");
+            System.out.println("[3] Create Racer");
+            System.out.println("[4] Register Racer to Event");
+            System.out.println("[5] View Events");
+            System.out.println("[6] View Racers");
+            System.out.println("[7] View Registrations");
+            System.out.println("[8] Approve Registration (Admin)");
             System.out.println("[0] Exit");
             System.out.print("> ");
 
             switch (scanner.nextLine()) {
                 case "1" -> createEvent(scanner);
-                case "2" -> createRacer(scanner, auth);
-                case "3" -> register(scanner, auth);
-                case "4" -> viewEvents();
-                case "5" -> viewRacers(auth);
-                case "6" -> viewRegistrations(auth);
-                case "7" -> approveRegistration(scanner);
+                case "2" -> createPerson(scanner);
+                case "3" -> createRacer(scanner, auth);
+                case "4" -> register(scanner, auth);
+                case "5" -> viewEvents();
+                case "6" -> viewRacers(auth);
+                case "7" -> viewRegistrations(auth);
+                case "8" -> approveRegistration(scanner);
                 case "0" -> System.exit(0);
                 default -> System.out.println("❌ Invalid choice.");
             }
@@ -85,6 +87,18 @@ public class TestRunner {
         e.setLocation(s.nextLine());
         var res = eventController.create(e).getBody();
         System.out.println("✅ Created: ID=" + res.getEventId());
+    }
+
+    private void createPerson(Scanner s) {
+        Person person = new Person();
+        System.out.print("First name: "); person.setFirstName(s.nextLine());
+        System.out.print("Last name: "); person.setLastName(s.nextLine());
+        System.out.print("Email: "); person.setEmail(s.nextLine());
+        System.out.print("Password: "); person.setPassword(s.nextLine());
+        person.setRole(Role.PARENT);
+
+        personRepo.save(person);
+        System.out.println("✅ Person saved.");
     }
 
     private void createRacer(Scanner s, Authentication auth) {
@@ -132,4 +146,5 @@ public class TestRunner {
         registrationController.approve(id);
         System.out.println("✅ Approved registration #" + id);
     }
+
 }
