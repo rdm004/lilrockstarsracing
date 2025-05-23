@@ -1,19 +1,21 @@
-# Use a minimal Java runtime
-FROM eclipse-temurin:21-jdk-alpine
+# Use official Maven + JDK base image
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 
-# Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper files and dependencies
-COPY .mvn .mvn
-COPY mvnw pom.xml ./
-RUN ./mvnw dependency:go-offline
+# Copy pom + source
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
 
-# Copy source code
 COPY src ./src
 
-# Build the project (skip tests for speed)
-RUN ./mvnw package -DskipTests
+# Build the JAR
+RUN mvn package -DskipTests
 
-# Run the jar
-CMD ["java", "-jar", "backend-0.0.1-SNAPSHOT.jar"]
+# Final image
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
