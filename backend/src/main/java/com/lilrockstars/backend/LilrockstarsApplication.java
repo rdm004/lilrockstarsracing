@@ -8,11 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
-@SpringBootApplication(exclude = {
-        TransactionAutoConfiguration.class
-})
+@SpringBootApplication
 public class LilrockstarsApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(LilrockstarsApplication.class, args);
     }
