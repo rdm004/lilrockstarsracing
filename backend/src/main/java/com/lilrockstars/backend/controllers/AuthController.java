@@ -23,49 +23,49 @@ import java.util.List;
 public class AuthController {
 
     private final PersonRepository personRepo;
-    private final AuthenticationManager authManager;
-    private final PasswordEncoder passwordEncoder;
+//    private final AuthenticationManager authManager;
+//    private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
     public AuthController(
             PersonRepository personRepo,
-            AuthenticationManager authManager,
-            PasswordEncoder passwordEncoder,
+//            AuthenticationManager authManager,
+//            PasswordEncoder passwordEncoder,
             JwtUtil jwtUtil
     ) {
         this.personRepo = personRepo;
-        this.authManager = authManager;
-        this.passwordEncoder = passwordEncoder;
+//        this.authManager = authManager;
+//        this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginDTO dto) {
-        Authentication auth = authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
-        );
-        SecurityContextHolder.getContext().setAuthentication(auth);
-        UserDetails userDetails = (UserDetails) auth.getPrincipal();
-        String jwt = jwtUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(),
-                userDetails.getAuthorities().stream().map(a -> a.getAuthority()).toList()));
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterDTO dto) {
-        if (personRepo.findByEmail(dto.getEmail()).isPresent()) {
-            return ResponseEntity.status(409).body("User already exists");
-        }
-        Person person = new Person();
-        person.setFirstName(dto.getFirstName());
-        person.setLastName(dto.getLastName());
-        person.setEmail(dto.getEmail());
-        person.setPassword(passwordEncoder.encode(dto.getPassword()));
-        person.setRole(Role.PARENT);
-        personRepo.save(person);
-        return ResponseEntity.ok("User registered");
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(@Valid @RequestBody LoginDTO dto) {
+//        Authentication auth = authManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
+//        );
+//        SecurityContextHolder.getContext().setAuthentication(auth);
+//        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+//        String jwt = jwtUtil.generateToken(userDetails);
+//
+//        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(),
+//                userDetails.getAuthorities().stream().map(a -> a.getAuthority()).toList()));
+//    }
+//
+//    @PostMapping("/register")
+//    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterDTO dto) {
+//        if (personRepo.findByEmail(dto.getEmail()).isPresent()) {
+//            return ResponseEntity.status(409).body("User already exists");
+//        }
+//        Person person = new Person();
+//        person.setFirstName(dto.getFirstName());
+//        person.setLastName(dto.getLastName());
+//        person.setEmail(dto.getEmail());
+//        person.setPassword(passwordEncoder.encode(dto.getPassword()));
+//        person.setRole(Role.PARENT);
+//        personRepo.save(person);
+//        return ResponseEntity.ok("User registered");
+//    }
 
     // Inner class for JWT response
     private static class JwtResponse {
