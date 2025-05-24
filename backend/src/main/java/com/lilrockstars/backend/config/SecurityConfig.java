@@ -1,8 +1,6 @@
 package com.lilrockstars.backend.config;
 
-import com.lilrockstars.backend.service.CustomUserDetailsService;
 import com.lilrockstars.backend.util.JwtAuthenticationFilter;
-import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -27,8 +25,38 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtFilter;
 
+    // Set this to false to temporarily disable security
+    private final boolean SECURITY_ENABLED = true;
+
     public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        if (!SECURITY_ENABLED) {
+            http
+                    .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                    .csrf(csrf -> csrf.disable())
+                    .sessionManagement(sess -> sess.disable());
+        } else {
+            http
+                    .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                    .csrf(csrf -> csrf.disable())
+                    .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                    .authorizeHttpRequests(auth -> auth
+                            .requestMatchers("/", "/index.html", "/favicon.ico",
+                                    "/css/**", "/js/**", "/images/**", "/static/**", "/html/**", "/media/**").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
+                            .requestMatchers(HttpMethod.GET, "/api/admin/registrations").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.GET, "/api/admin/events").hasRole("ADMIN")
+                            .anyRequest().authenticated()
+                    )
+                    .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        }
+
+        return http.build();
     }
 
     @Bean
@@ -45,44 +73,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // Allow ALL requests
-                )
-                .csrf(csrf -> csrf.disable()) // Disable CSRF
-                .sessionManagement(sess -> sess.disable()); // Disable session management if needed
-
-//                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-//                .csrf(csrf -> csrf.disable())
-//                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/", "/index.html", "/favicon.ico",
-//                                "/css/**", "/js/**", "/images/**", "/static/**", "/html/**",
-//                                "/media/**", "/admin/**", "/events/**").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register").permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/api/admin/registrations").hasRole("ADMIN")
-//                        .requestMatchers(HttpMethod.GET, "/api/admin/events").hasRole("ADMIN")
-//                        .anyRequest().authenticated()
-//                )
-//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
-
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // ✅ This is the missing bean required by AuthController
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-//        return configuration.getAuthenticationManager();
-//    }
-    @PostConstruct
-    public void logInit() {
-        System.out.println("✅ SecurityConfig initialized");
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 }
