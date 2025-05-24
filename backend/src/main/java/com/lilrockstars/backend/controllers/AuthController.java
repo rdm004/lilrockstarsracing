@@ -1,12 +1,12 @@
 package com.lilrockstars.backend.controllers;
 
 import com.lilrockstars.backend.dto.LoginDTO;
+import com.lilrockstars.backend.dto.UserRegisterDTO;
 import com.lilrockstars.backend.entities.Person;
 import com.lilrockstars.backend.entities.Role;
 import com.lilrockstars.backend.repositories.PersonRepository;
 import com.lilrockstars.backend.util.JwtUtil;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,10 +22,22 @@ import java.util.List;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    @Autowired private PersonRepository personRepo;
-    @Autowired private AuthenticationManager authManager;
-    @Autowired private PasswordEncoder passwordEncoder;
-    @Autowired private JwtUtil jwtUtil;
+    private final PersonRepository personRepo;
+    private final AuthenticationManager authManager;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
+
+    public AuthController(
+            PersonRepository personRepo,
+            AuthenticationManager authManager,
+            PasswordEncoder passwordEncoder,
+            JwtUtil jwtUtil
+    ) {
+        this.personRepo = personRepo;
+        this.authManager = authManager;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginDTO dto) {
@@ -42,7 +53,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody com.lilrockstars.backend.dto.UserRegisterDTO dto) {
+    public ResponseEntity<?> register(@Valid @RequestBody UserRegisterDTO dto) {
         if (personRepo.findByEmail(dto.getEmail()).isPresent()) {
             return ResponseEntity.status(409).body("User already exists");
         }
@@ -51,16 +62,16 @@ public class AuthController {
         person.setLastName(dto.getLastName());
         person.setEmail(dto.getEmail());
         person.setPassword(passwordEncoder.encode(dto.getPassword()));
-        person.setRole(Role.PARENT); // Ensure role is passed or default to PARENT
+        person.setRole(Role.PARENT);
         personRepo.save(person);
         return ResponseEntity.ok("User registered");
     }
 
-    // JWT response DTO
+    // Inner class for JWT response
     private static class JwtResponse {
-        private String token;
-        private String username;
-        private List<String> roles;
+        private final String token;
+        private final String username;
+        private final List<String> roles;
 
         public JwtResponse(String token, String username, List<String> roles) {
             this.token = token;
@@ -71,12 +82,5 @@ public class AuthController {
         public String getToken() { return token; }
         public String getUsername() { return username; }
         public List<String> getRoles() { return roles; }
-    }
-    @Controller
-    public class HomeController {
-        @GetMapping("/")
-        public String index() {
-            return "redirect:index.html";
-        }
     }
 }
