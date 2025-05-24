@@ -21,10 +21,10 @@ import java.util.*;
 @CrossOrigin
 public class AdminController {
 
-    @Autowired
-    private RegistrationService regService;
-    @Autowired
-    private EventRepository eventRepository;
+//    @Autowired
+//    private RegistrationService regService;
+//    @Autowired
+//    private EventRepository eventRepository;
     @Autowired
     private EventService eventService;
 
