@@ -25,12 +25,13 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtFilter;
 
-    // Set this to false to temporarily disable security
+    // Toggle this to disable security (dev-only)
     private final boolean SECURITY_ENABLED = true;
 
     public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
     }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
@@ -49,8 +50,10 @@ public class SecurityConfig {
                     .csrf(csrf -> csrf.disable())
                     .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .authorizeHttpRequests(auth -> auth
-                            .requestMatchers("/", "/index.html", "/favicon.ico",
-                                    "/css/**", "/js/**", "/images/**", "/static/**", "/html/**", "/media/**").permitAll()
+                            .requestMatchers(
+                                    "/", "/index.html", "/favicon.ico",
+                                    "/css/**", "/js/**", "/images/**", "/static/**", "/html/**", "/media/**"
+                            ).permitAll()
                             .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/admin/registrations").hasRole("ADMIN")
@@ -60,19 +63,18 @@ public class SecurityConfig {
                     .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         }
 
-        return http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .build();
+        return http.build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:5173"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:3000",
+                "http://localhost:5173",
+                "http://localhost:5174",
+                "https://lilrockstarsracingfrontend-git-a53213-ryan-s-projects-3cdf0875.vercel.app"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setAllowCredentials(true);
@@ -86,6 +88,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
 }
