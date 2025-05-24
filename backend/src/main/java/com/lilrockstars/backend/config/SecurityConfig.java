@@ -47,20 +47,26 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/index.html", "/favicon.ico",
-                                "/css/**", "/js/**", "/images/**", "/static/**", "/html/**",
-                                "/media/**", "/admin/**", "/events/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/admin/registrations").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/admin/events").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll() // Allow ALL requests
                 )
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .csrf(csrf -> csrf.disable()) // Disable CSRF
+                .sessionManagement(sess -> sess.disable()); // Disable session management if needed
+
+//                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+//                .csrf(csrf -> csrf.disable())
+//                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/", "/index.html", "/favicon.ico",
+//                                "/css/**", "/js/**", "/images/**", "/static/**", "/html/**",
+//                                "/media/**", "/admin/**", "/events/**").permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/api/admin/registrations").hasRole("ADMIN")
+//                        .requestMatchers(HttpMethod.GET, "/api/admin/events").hasRole("ADMIN")
+//                        .anyRequest().authenticated()
+//                )
+//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -71,10 +77,10 @@ public class SecurityConfig {
     }
 
     // ✅ This is the missing bean required by AuthController
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
+//    @Bean
+//    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+//        return configuration.getAuthenticationManager();
+//    }
     @PostConstruct
     public void logInit() {
         System.out.println("✅ SecurityConfig initialized");
