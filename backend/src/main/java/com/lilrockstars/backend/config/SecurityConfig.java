@@ -2,6 +2,7 @@ package com.lilrockstars.backend.config;
 
 import com.lilrockstars.backend.service.CustomUserDetailsService;
 import com.lilrockstars.backend.util.JwtAuthenticationFilter;
+import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -73,5 +74,9 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
+    }
+    @PostConstruct
+    public void logInit() {
+        System.out.println("✅ SecurityConfig initialized");
     }
 }
