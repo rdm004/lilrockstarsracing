@@ -4,6 +4,7 @@ import com.lilrockstars.backend.controllers.*;
 import com.lilrockstars.backend.dto.*;
 import com.lilrockstars.backend.entities.*;
 import com.lilrockstars.backend.repositories.PersonRepository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,8 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class TestRunner {
+@Profile("local")
+public class TestRunner_temp {
 
 
     private final EventController eventController;
@@ -21,7 +23,7 @@ public class TestRunner {
     private final RegistrationController registrationController;
     private final PersonRepository personRepo;
 
-    public TestRunner(
+    public TestRunner_temp(
             EventController eventController,
             RacerController racerController,
             RegistrationController registrationController,
