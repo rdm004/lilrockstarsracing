@@ -9,18 +9,15 @@ export default function Events() {
         const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
         fetch(`${BASE_URL}/api/events/all`)
-            .then(r => {
-                if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
-                return r.json();
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                return res.json();
             })
             .then(data => {
                 console.log('✅ Raw data from API:', data);
 
                 const sorted = data
-                    .map(e => ({
-                        ...e,
-                        date: new Date(e.date)
-                    }))
+                    .map(e => ({ ...e, date: new Date(e.date) }))
                     .sort((a, b) => a.date - b.date);
 
                 console.log('📅 Parsed and sorted events:', sorted);
@@ -28,7 +25,7 @@ export default function Events() {
             })
             .catch(err => {
                 console.error('❌ Fetch error:', err);
-                setError('Could not load events. Please try again later.');
+                setError(err.message);
             });
     }, []);
 
@@ -36,7 +33,11 @@ export default function Events() {
 
     return (
         <div className="events-page">
-            {error && <p className="error">{error}</p>}
+            {error && (
+                <div className="error-banner">
+                    ❌ Error: {error}
+                </div>
+            )}
 
             {nextEvent && (
                 <div className="next-event-banner">
