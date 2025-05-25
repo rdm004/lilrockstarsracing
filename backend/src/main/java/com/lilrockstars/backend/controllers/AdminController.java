@@ -21,18 +21,18 @@ import java.util.*;
 @CrossOrigin
 public class AdminController {
 
-//    @Autowired
-//    private RegistrationService regService;
-//    @Autowired
-//    private EventRepository eventRepository;
+    @Autowired
+    private RegistrationService regService;
+    @Autowired
+    private EventRepository eventRepository;
     @Autowired
     private EventService eventService;
 
-//    @Autowired
-//    private PersonRepository personRepo;
-//
-//    @Autowired
-//    private RacerRepository racerRepo;
+    @Autowired
+    private PersonRepository personRepo;
+
+    @Autowired
+    private RacerRepository racerRepo;
 
     // ✅ 1. Get all registrations
     @GetMapping("/events")
@@ -40,30 +40,29 @@ public class AdminController {
         return ResponseEntity.ok(eventService.getAllEvents()); // or eventRepo.findAll()
     }
 
-//    // ✅ 2. Get all parents and their racers
-//    @GetMapping("/parents")
-//    public ResponseEntity<List<Map<String, Object>>> getParentsAndRacers() {
-//        List<Person> parents = personRepo.findByRole(com.lilrockstars.backend.entities.Role.PARENT);
-//        List<Map<String, Object>> result = new ArrayList<>();
-//
-//        for (Person p : parents) {
-//            Map<String, Object> entry = new HashMap<>();
-//            entry.put("email", p.getEmail());
-//
-//            List<Map<String, Object>> racers = new ArrayList<>();
-//            for (Racer r : racerRepo.findByParent(p)) {
-//                Map<String, Object> rmap = new HashMap<>();
-//                rmap.put("racerId", r.getId());
-//                rmap.put("firstName", r.getFirstName());
-//                rmap.put("lastName", r.getLastName());
-//                rmap.put("age", r.getAge());
-//                racers.add(rmap);
-//            }
-//
-//            entry.put("racers", racers);
-//            result.add(entry);
-//        }
-//
-//        return ResponseEntity.ok(result);
-//    }
+    // ✅ 2. Get all parents and their racers
+    @GetMapping("/parents")
+    public ResponseEntity<List<Map<String, Object>>> getParentsAndRacers() {
+        List<Person> parents = personRepo.findByRole(com.lilrockstars.backend.entities.Role.PARENT);
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        for (Person p : parents) {
+            Map<String, Object> entry = new HashMap<>();
+            entry.put("email", p.getEmail());
+
+            List<Map<String, Object>> racers = new ArrayList<>();
+            for (Racer r : racerRepo.findByParent(p)) {
+                Map<String, Object> rmap = new HashMap<>();
+                rmap.put("racerId", r.getId());
+                rmap.put("firstName", r.getFirstName());
+                rmap.put("lastName", r.getLastName());
+                rmap.put("age", r.getAge());
+                racers.add(rmap);
+            }
+           entry.put("racers", racers);
+           result.add(entry);
+        }
+
+       return ResponseEntity.ok(result);
+   }
 }

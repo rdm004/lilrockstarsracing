@@ -13,7 +13,7 @@
 
 # misc
 .DS_Store
-.env.local
+.env
 .env.development.local
 .env.test.local
 .env.production.local
@@ -28,4 +28,3 @@ src/supabaseClient.js
 media-react/src/supabaseClient.js
 
 # local environment variables
-.env

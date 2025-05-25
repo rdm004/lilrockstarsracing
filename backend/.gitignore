@@ -36,7 +36,7 @@ build/
 # Backend build
 /target/
 /.mvn/
-env.env
+.env
 
 # Frontend build & deps
 /frontend/node_modules/

@@ -1,31 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import './Events.css';
 
-
 export default function Events() {
+    const [events, setEvents] = useState([]);
+    const [error, setError] = useState(null);
 
-    console.log('BASE_URL from VITE:', import.meta.env.VITE_API_BASE_URL);
-    console.log('✅ BASE_URL:', import.meta.env.VITE_API_BASE_URL);
-    console.log(" ENV CHECK:", import.meta.env);
-    console.log(" VITE_API_BASE_URL:", import.meta.env.VITE_API_BASE_URL);
-
+    const BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://lilrockstarsracing-test.onrender.com";
 
     useEffect(() => {
-        console.log("🔥 ENV CHECK:", import.meta.env);
-        console.log("🔥 VITE_API_BASE_URL:", import.meta.env.VITE_API_BASE_URL);
+        const fetchEvents = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/api/events/all`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-        const BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://lilrockstarsracing-test.onrender.com";
+                const data = await response.json();
+                console.log('✅ Events:', data);
 
-        fetch(`${BASE_URL}/api/events/all`)
-            .then(res => {
-                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-                return res.json();
-            })
-            .then(data => console.log('✅ Events:', data))
-            .catch(err => console.error('❌ Fetch error:', err));
-    }, []);
+                if (Array.isArray(data)) {
+                    setEvents(data);
+                } else {
+                    throw new Error("Unexpected API response format");
+                }
+            } catch (err) {
+                console.error('❌ Fetch error:', err);
+                setError(err.message);
+            }
+        };
 
-    const nextEvent = events[0] || null;
+        fetchEvents();
+    }, [BASE_URL]);
+
+    const nextEvent = events.length > 0 ? events[0] : null;
 
     return (
         <div className="events-page">
@@ -43,8 +48,17 @@ export default function Events() {
             )}
 
             <div className="events-list">
-                {events.map(evt => {
+                {events.map((evt) => {
                     const isNext = nextEvent && evt.eventId === nextEvent.eventId;
+                    const eventDate = evt.date ? new Date(evt.date) : null;
+                    const formattedDate = eventDate && !isNaN(eventDate)
+                        ? eventDate.toLocaleDateString(undefined, {
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric',
+                        })
+                        : 'Date unavailable';
+
                     return (
                         <div
                             key={evt.eventId}
@@ -53,17 +67,8 @@ export default function Events() {
                             <h3 className={`event-title ${isNext ? 'upcoming' : ''}`}>
                                 {evt.name}
                             </h3>
-                            <p className="event-date">
-                                Date:&nbsp;
-                                z{new Date(evt.date).toString() !== 'Invalid Date'
-                                ? new Date(evt.date).toLocaleDateString( {
-                                        month: 'long',
-                                        day: 'numeric',
-                                        year: 'numeric',
-                                    })
-                                    : 'Invalid date'}
-                            </p>
-                            <p className="event-location">Location:&nbsp;{evt.location}</p>
+                            <p className="event-date">Date:&nbsp;{formattedDate}</p>
+                            <p className="event-location">Location:&nbsp;{evt.location || 'TBA'}</p>
                         </div>
                     );
                 })}
