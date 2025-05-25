@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Events.css';
 
-// update vercel.json
+// update vercel.json to push a new deployment on Vercel
 
 
 export default function Events() {
