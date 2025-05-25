@@ -8,17 +8,20 @@ export default function Events() {
     const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     useEffect(() => {
-               fetch(`${BASE_URL}/api/events/all`)
+        const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+        fetch(`${BASE_URL}/api/events/all`)
             .then(res => {
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 return res.json();
             })
             .then(data => {
-                console.log('✅ Data:', data);
+                console.log('✅ Data from API:', data);
                 setEvents(data);
             })
             .catch(err => {
-                console.error('❌ Fetch error:', err);
+                console.error('❌ Fetch error:', err.message);
+                setError(err.message);
             });
     }, []);
 
