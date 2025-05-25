@@ -6,6 +6,12 @@
       "use": "@vercel/static-build"
     }
   ],
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://lilrockstarsracing-test.onrender.com/api/:path*"
+    }
+  ],
   "routes": [
     {
       "src": "/(.*)",
