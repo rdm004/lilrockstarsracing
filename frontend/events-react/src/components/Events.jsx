@@ -7,14 +7,14 @@ import './Events.css';
 export default function Events() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
-    const BASE_URL = "https://lilrockstarsracing-test.onrender.com";
+    const BASE_URL = "/api";
 
     useEffect(() => {
         const fetchEvents = async () => {
             console.log("🌐 Fetching from:", `${BASE_URL}/api/events/all`);
 
             try {
-                const response = await fetch(`${BASE_URL}/api/events/all`, {
+                const response = await fetch(`${BASE_URL}/events/all`, {
                     headers: {
                         'Accept': 'application/json'
                     }
