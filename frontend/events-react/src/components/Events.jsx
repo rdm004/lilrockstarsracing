@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './Events.css';
 
+
 export default function Events() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
 
     console.log('BASE_URL from VITE:', import.meta.env.VITE_API_BASE_URL);
     console.log('✅ BASE_URL:', import.meta.env.VITE_API_BASE_URL);
-    console.log("🔥 ENV CHECK:", import.meta.env);
-    console.log("🔥 VITE_API_BASE_URL:", import.meta.env.VITE_API_BASE_URL);
+    console.log(" ENV CHECK:", import.meta.env);
+    console.log(" VITE_API_BASE_URL:", import.meta.env.VITE_API_BASE_URL);
 
 
     useEffect(() => {
