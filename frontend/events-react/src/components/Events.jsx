@@ -4,12 +4,11 @@ import './Events.css';
 export default function Events() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
+    console.log("📦 ENV BASE_URL:", process.env.REACT_APP_API_BASE_URL);
+    const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
     useEffect(() => {
-        console.log("📦 ENV BASE_URL:", process.env.REACT_APP_API_BASE_URL);
-        const BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
-        fetch(`${BASE_URL}/api/events/all`)
+               fetch(`${BASE_URL}/api/events/all`)
             .then(res => {
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 return res.json();
@@ -53,8 +52,8 @@ export default function Events() {
                             </h3>
                             <p className="event-date">
                                 Date:&nbsp;
-                                {evt.date instanceof Date
-                                    ? evt.date.toLocaleDateString(undefined, {
+                                z{new Date(evt.date).toString() !== 'Invalid Date'
+                                ? new Date(evt.date).toLocaleDateString( {
                                         month: 'long',
                                         day: 'numeric',
                                         year: 'numeric',
