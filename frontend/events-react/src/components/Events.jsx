@@ -9,6 +9,16 @@ export default function Events() {
 
     useEffect(() => {
         const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+        console.log('BASE_URL:', BASE_URL);
+        fetch(`${BASE_URL}/api/events/all`)
+            .then(res => {
+                const contentType = res.headers.get("content-type");
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                if (!contentType || !contentType.includes("application/json")) {
+                    throw new Error("Response is not JSON");
+                }
+                return res.json();
+            })
 
         fetch(`${BASE_URL}/api/events/all`)
             .then(res => {
