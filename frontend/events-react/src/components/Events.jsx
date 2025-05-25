@@ -9,6 +9,7 @@ export default function Events() {
     console.log("🔥 Hardcoded BASE_URL:", BASE_URL);
 
     useEffect(() => {
+        console.log("🌐 Fetching from:", `${BASE_URL}/api/events/all`);
         const fetchEvents = async () => {
             try {
                 const response = await fetch(`${BASE_URL}/api/events/all`);
