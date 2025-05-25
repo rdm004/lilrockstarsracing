@@ -4,23 +4,24 @@ import './Events.css';
 export default function Events() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
-    console.log("📦 ENV BASE_URL:", process.env.REACT_APP_API_BASE_URL);
-    const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+    const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     useEffect(() => {
         const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
         fetch(`${BASE_URL}/api/events/all`)
             .then(res => {
+                console.log('Raw response:', res);
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 return res.json();
             })
             .then(data => {
-                console.log('✅ Data from API:', data);
+                console.log('✅ Data:', data);
                 setEvents(data);
             })
             .catch(err => {
-                console.error('❌ Fetch error:', err.message);
+                console.error('❌ Fetch error:', err);
                 setError(err.message);
             });
     }, []);
