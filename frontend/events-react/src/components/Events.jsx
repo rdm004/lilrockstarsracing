@@ -8,8 +8,9 @@ export default function Events() {
     console.log('BASE_URL from VITE:', import.meta.env.VITE_API_BASE_URL);
     console.log('✅ BASE_URL:', import.meta.env.VITE_API_BASE_URL);
 
+
     useEffect(() => {
-        const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+        const BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://lilrockstarsracing-test.onrender.com";
         console.log('BASE_URL:', BASE_URL);
         fetch(`${BASE_URL}/api/events/all`)
             .then(res => {
