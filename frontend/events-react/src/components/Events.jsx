@@ -5,7 +5,7 @@ export default function Events() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
 
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://lilrockstarsracing-test.onrender.com";
+    const BASE_URL = "https://lilrockstarsracing-test.onrender.com";
 
     useEffect(() => {
         const fetchEvents = async () => {
