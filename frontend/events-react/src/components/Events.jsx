@@ -7,6 +7,8 @@ export default function Events() {
 
     console.log('BASE_URL from VITE:', import.meta.env.VITE_API_BASE_URL);
     console.log('✅ BASE_URL:', import.meta.env.VITE_API_BASE_URL);
+    console.log("🔥 ENV CHECK:", import.meta.env);
+    console.log("🔥 VITE_API_BASE_URL:", import.meta.env.VITE_API_BASE_URL);
 
 
     useEffect(() => {
