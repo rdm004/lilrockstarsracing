@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Events.css';
 
+// update vercel.json
+
+
 export default function Events() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
