@@ -5,7 +5,8 @@ export default function Events() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
 
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    console.log('BASE_URL from VITE:', import.meta.env.VITE_API_BASE_URL);
+    console.log('✅ BASE_URL:', import.meta.env.VITE_API_BASE_URL);
 
     useEffect(() => {
         const BASE_URL = import.meta.env.VITE_API_BASE_URL;
