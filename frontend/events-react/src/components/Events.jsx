@@ -8,24 +8,17 @@ export default function Events() {
     useEffect(() => {
         const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/api/events/all`)
+        fetch(`${BASE_URL}/api/events/all`)
             .then(res => {
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 return res.json();
             })
             .then(data => {
-                console.log('✅ Raw data from API:', data);
-
-                const sorted = data
-                    .map(e => ({ ...e, date: new Date(e.date) }))
-                    .sort((a, b) => a.date - b.date);
-
-                console.log('📅 Parsed and sorted events:', sorted);
-                setEvents(sorted);
+                console.log('✅ Data:', data);
+                setEvents(data);
             })
             .catch(err => {
                 console.error('❌ Fetch error:', err);
-                setError(err.message);
             });
     }, []);
 
