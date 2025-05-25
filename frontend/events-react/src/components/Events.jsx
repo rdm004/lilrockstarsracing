@@ -8,7 +8,7 @@ export default function Events() {
     useEffect(() => {
         const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-        fetch(`${BASE_URL}/api/events/all`)
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/api/events/all`)
             .then(res => {
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 return res.json();
