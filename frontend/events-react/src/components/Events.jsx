@@ -6,6 +6,7 @@ export default function Events() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        console.log("📦 ENV BASE_URL:", process.env.REACT_APP_API_BASE_URL);
         const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
         fetch(`${BASE_URL}/api/events/all`)
