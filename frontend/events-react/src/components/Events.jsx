@@ -6,6 +6,7 @@ export default function Events() {
     const [error, setError] = useState(null);
 
     const BASE_URL = "https://lilrockstarsracing-test.onrender.com";
+    console.log("🔥 Hardcoded BASE_URL:", BASE_URL);
 
     useEffect(() => {
         const fetchEvents = async () => {
