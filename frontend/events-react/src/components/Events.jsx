@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Events.css';
+import EventDEBUG from '.EventsDEBUG';
 
 export default function Events() {
     const [events, setEvents] = useState([]);
@@ -13,6 +14,7 @@ export default function Events() {
 
     useEffect(() => {
         console.log("✅ USING HARDCODED BASE_URL");
+        console.log("🔥 EventsDEBUG loaded!");
         const fetchEvents = async () => {
             const fullURL = `${BASE_URL}/events/all`;
             console.log("🌐 Fetching from:", fullURL);
