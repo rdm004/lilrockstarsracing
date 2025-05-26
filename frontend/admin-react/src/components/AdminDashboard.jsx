@@ -7,19 +7,16 @@ const AdminDashboard = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             const token = localStorage.getItem('jwt');
-
             try {
-                const response = await axios.get(
+                const res = await axios.get(
                     `${process.env.REACT_APP_API_URL}/admin/events/all`,
                     {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
+                        headers: { Authorization: `Bearer ${token}` }
                     }
                 );
-                setEvents(response.data);
+                setEvents(res.data);
             } catch (err) {
-                console.error('Failed to fetch events', err.response || err.message);
+                console.error('❌ Failed to fetch events:', err);
             }
         };
 
