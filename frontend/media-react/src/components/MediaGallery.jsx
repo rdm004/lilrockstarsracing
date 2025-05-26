@@ -15,7 +15,7 @@ const MediaGallery = () => {
                 setImages(data);
             }
         };
-
+// comment to push documents
         fetchMedia();
     }, []);
 
