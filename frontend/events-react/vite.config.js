@@ -3,9 +3,8 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/events/',
   build: {
-    outDir: '../public/events',
+    outDir: 'dist',
     emptyOutDir: true,
   },
   server: {
