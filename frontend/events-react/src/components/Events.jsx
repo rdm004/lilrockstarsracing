@@ -7,7 +7,7 @@ import './Events.css';
 export default function Events() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
-    const BASE_URL = "/api";
+    const BASE_URL = "https://your-backend-app.onrender.com/api";
 
     useEffect(() => {
         const fetchEvents = async () => {
