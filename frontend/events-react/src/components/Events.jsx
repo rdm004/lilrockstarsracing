@@ -6,6 +6,11 @@ export default function Events() {
     const [error, setError] = useState(null);
 
     const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+    console.log("✅ BASE_URL:", BASE_URL);
+
+    if (!BASE_URL) {
+        throw new Error("❌ ENV VAR NEXT_PUBLIC_API_URL is undefined at runtime.");
+    }
 
     useEffect(() => {
         const fetchEvents = async () => {
