@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Events.css';
 
-
+// info
 console.log("🔥 FINAL TEST — Events.jsx IS RUNNING 🔥");
 throw new Error("💥 Break the app to confirm this file is used");
 
