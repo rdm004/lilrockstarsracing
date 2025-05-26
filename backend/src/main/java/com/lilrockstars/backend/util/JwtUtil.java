@@ -22,16 +22,17 @@ public class JwtUtil {
     }
 
     public String generateToken(UserDetails userDetails) {
-        Claims claims = Jwts.claims().setSubject(userDetails.getUsername());
-        claims.put("authorities", userDetails.getAuthorities().stream()
+        List<String> roles = userDetails.getAuthorities()
+                .stream()
                 .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
 
         return Jwts.builder()
-                .setClaims(claims)
+                .setSubject(userDetails.getUsername())
+                .claim("roles", roles)  // ✅ Replace 'authorities'
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256) // ✅ Correct key object
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
