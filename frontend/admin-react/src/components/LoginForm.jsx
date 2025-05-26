@@ -1,6 +1,6 @@
 // src/components/LoginForm.jsx
 import React, { useState } from 'react';
-import api from '../api/axios';
+import axios from '../api/axios';
 
 const LoginForm = ({ onLogin }) => {
     const [email, setEmail] = useState('');
@@ -13,7 +13,7 @@ const LoginForm = ({ onLogin }) => {
                 `${process.env.REACT_APP_API_URL}/auth/login`,
                 { email, password }
             );
-            localStorage.setItem('jwt', res.data.token);
+            localStorage.setItem('jwt', response.data.token);
             onLogin();
         } catch (err) {
             alert('Login failed: ' + (err.response?.data || err.message));
