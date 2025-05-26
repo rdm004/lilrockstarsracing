@@ -9,39 +9,28 @@ export default function Events() {
     const [error, setError] = useState(null);
     const BASE_URL = "https://lilrockstarsracing-test.onrender.com/api";
 
-    useEffect(() => {
-        const fetchEvents = async () => {
-            console.log("🌐 Fetching from:", `${BASE_URL}/api/events/all`);
+    useEffect(() => {const fetchEvents = async () => {
+        try {
+            const response = await fetch('/api/events/all');
 
-            try {
-                const response = await fetch(`${BASE_URL}/events/all`, {
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-
-                const contentType = response.headers.get("Content-Type");
-                if (!contentType || !contentType.includes("application/json")) {
-                    throw new Error("Received non-JSON response");
-                }
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                console.log("✅ Events received:", data);
-
-                if (Array.isArray(data)) {
-                    setEvents(data);
-                } else {
-                    throw new Error("API response is not an array");
-                }
-            } catch (err) {
-                console.error("❌ Fetch error:", err);
-                setError(err.message || "Unknown error");
+            const contentType = response.headers.get("Content-Type");
+            if (!contentType || !contentType.includes("application/json")) {
+                const text = await response.text();
+                console.error("Received non-JSON response:", text);
+                throw new Error("Expected JSON but got HTML");
             }
-        };
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setEvents(data);
+        } catch (error) {
+            console.error("❌ Fetch failed:", error);
+            setError(error.message);
+        }
+    };
 
         fetchEvents();
     }, []);
