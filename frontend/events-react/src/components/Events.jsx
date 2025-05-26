@@ -5,10 +5,7 @@ export default function Events() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
 
-    const BASE_URL =
-        process.env.NODE_ENV === 'production'
-            ? 'https://lilrockstarsracing-test.onrender.com/api'
-            : '/api';
+    const BASE_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
     useEffect(() => {
         const fetchEvents = async () => {
