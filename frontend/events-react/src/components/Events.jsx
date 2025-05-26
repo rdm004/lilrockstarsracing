@@ -5,7 +5,7 @@ export default function Events() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
 
-    const BASE_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
+    const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
     useEffect(() => {
         const fetchEvents = async () => {
