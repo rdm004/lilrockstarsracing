@@ -1,62 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import './Events.css';
 
-// info
-console.log("🔥 FINAL TEST — Events.jsx IS RUNNING 🔥");
-throw new Error("💥 Break the app to confirm this file is used");
-
 export default function Events() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
 
-    const BASE_URL = import.meta.env.VITE_API_URL;
-    console.log("🔍 BASE_URL:", BASE_URL);
-
-    if (!BASE_URL) {
-        throw new Error("🚫 VITE_API_URL not defined at build time!");
-    }
+    // ✅ Hardcoded base URL to bypass Vercel rewrites entirely
+    const BASE_URL = 'https://lilrockstarsracing-test.onrender.com/api';
 
     useEffect(() => {
-        console.log("✅ USING HARDCODED BASE_URL");
-        console.log("🔥 EventsDEBUG loaded!");
-        const fetchEvents = async () => {
-            const fullURL = `${BASE_URL}/events/all`;
-            console.log("🌐 Fetching from:", fullURL);
+        console.log("✅ Fetching from:", `${BASE_URL}/events/all`);
 
-            try {
-                const response = await fetch(fullURL, {
-                    headers: {
-                        'Accept': 'application/json'
-                    },
-                    credentials: 'include' // optional depending on backend settings
-                });
-
-                const contentType = response.headers.get("Content-Type");
-                const status = response.status;
-
-                console.log("🔍 Status:", status);
-                console.log("📄 Content-Type:", contentType);
-
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error("❌ Server Error Response:", errorText.slice(0, 300));
-                    throw new Error(`Error ${status}: ${errorText}`);
-                }
-
+        fetch(`${BASE_URL}/events/all`)
+            .then(res => {
+                const contentType = res.headers.get("content-type");
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
                 if (!contentType || !contentType.includes("application/json")) {
-                    throw new Error("Expected JSON but got different content");
+                    throw new TypeError("Expected JSON but received " + contentType);
                 }
-
-                const data = await response.json();
-                console.log("✅ Received JSON:", data);
+                return res.json();
+            })
+            .then(data => {
+                console.log("✅ Events loaded:", data);
                 setEvents(data);
-            } catch (error) {
-                console.error("🚨 Fetch Error:", error);
-                setError(error.message);
-            }
-        };
-
-        fetchEvents();
+            })
+            .catch(err => {
+                console.error("❌ Fetch error:", err);
+                setError(err.message);
+            });
     }, []);
 
     const nextEvent = events.length > 0 ? events[0] : null;
@@ -81,15 +52,13 @@ export default function Events() {
                     events.map((evt) => {
                         const isNext = nextEvent && evt.eventId === nextEvent.eventId;
                         const eventDate = evt.date ? new Date(evt.date) : null;
-
-                        const formattedDate =
-                            eventDate && !isNaN(eventDate)
-                                ? eventDate.toLocaleDateString(undefined, {
-                                    month: 'long',
-                                    day: 'numeric',
-                                    year: 'numeric',
-                                })
-                                : 'Date unavailable';
+                        const formattedDate = eventDate && !isNaN(eventDate)
+                            ? eventDate.toLocaleDateString(undefined, {
+                                month: 'long',
+                                day: 'numeric',
+                                year: 'numeric',
+                            })
+                            : 'Date unavailable';
 
                         return (
                             <div
