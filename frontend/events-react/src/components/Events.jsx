@@ -12,6 +12,7 @@ export default function Events() {
     }
 
     useEffect(() => {
+        console.log("✅ USING HARDCODED BASE_URL");
         const fetchEvents = async () => {
             const fullURL = `${BASE_URL}/events/all`;
             console.log("🌐 Fetching from:", fullURL);
