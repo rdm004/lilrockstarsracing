@@ -1,6 +1,5 @@
-// src/components/LoginForm.jsx
 import React, { useState } from 'react';
-import axios from '../api/axios';
+import axios from 'axios';
 
 const LoginForm = ({ onLogin }) => {
     const [email, setEmail] = useState('');
@@ -9,13 +8,18 @@ const LoginForm = ({ onLogin }) => {
     const login = async (e) => {
         e.preventDefault();
         try {
+            console.log("Logging in with:", { email, password });
+
             const response = await axios.post(
                 `${process.env.REACT_APP_API_URL}/auth/login`,
-                { email, password }
+                { email, password },
+                { headers: { 'Content-Type': 'application/json' } } // ✅ Required header
             );
+
             localStorage.setItem('jwt', response.data.token);
-            onLogin();
+            onLogin(); // ✅ Triggers navigation or auth state update
         } catch (err) {
+            console.error(err.response || err.message);
             alert('Login failed: ' + (err.response?.data || err.message));
         }
     };
@@ -29,14 +33,14 @@ const LoginForm = ({ onLogin }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-            /><br />
+            />
             <input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-            /><br />
+            />
             <button type="submit">Login</button>
         </form>
     );
