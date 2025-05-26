@@ -37,5 +37,10 @@ public class EventController {
         return getAll(); // ✅ just forward to /all logic
     }
 
+    @GetMapping("/test")
+    public String testApi() {
+        return "Backend is working!";
+    }
+
 
 }
