@@ -1,39 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import './Events.css';
 
-// update vercel.json to push a new deployment on Vercel
-
-
 export default function Events() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
-    const BASE_URL = "https://lilrockstarsracing-test.onrender.com/api";
 
-    useEffect(() => {const fetchEvents = async () => {
-        try {
-            const response = await fetch('/api/events/all');
+    const BASE_URL =
+        process.env.NODE_ENV === 'production'
+            ? 'https://lilrockstarsracing-test.onrender.com/api'
+            : '/api';
 
-            const contentType = response.headers.get("Content-Type");
-            if (!contentType || !contentType.includes("application/json")) {
-                const text = await response.text();
-                console.error("Received non-JSON response:", text);
-                throw new Error("Expected JSON but got HTML");
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/events/all`, {
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                const contentType = response.headers.get("Content-Type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    const text = await response.text();
+                    console.error("⚠️ Received non-JSON response:", text.slice(0, 500));
+                    throw new Error("Expected JSON but got HTML");
+                }
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                setEvents(data);
+            } catch (error) {
+                console.error("❌ Fetch failed:", error);
+                setError(error.message);
             }
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setEvents(data);
-        } catch (error) {
-            console.error("❌ Fetch failed:", error);
-            setError(error.message);
-        }
-    };
+        };
 
         fetchEvents();
-    }, []);
+    }, [BASE_URL]);
 
     const nextEvent = events.length > 0 ? events[0] : null;
 
@@ -76,7 +82,9 @@ export default function Events() {
                                     {evt.name || 'Unnamed Event'}
                                 </h3>
                                 <p className="event-date">Date: {formattedDate}</p>
-                                <p className="event-location">Location: {evt.location || 'TBA'}</p>
+                                <p className="event-location">
+                                    Location: {evt.location || 'TBA'}
+                                </p>
                             </div>
                         );
                     })
