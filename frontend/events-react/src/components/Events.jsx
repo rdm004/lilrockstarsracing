@@ -19,7 +19,8 @@ export default function Events() {
                 const response = await fetch(fullURL, {
                     headers: {
                         'Accept': 'application/json'
-                    }
+                    },
+                    credentials: 'include' // optional depending on backend settings
                 });
 
                 const contentType = response.headers.get("Content-Type");
@@ -28,10 +29,14 @@ export default function Events() {
                 console.log("🔍 Status:", status);
                 console.log("📄 Content-Type:", contentType);
 
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("❌ Server Error Response:", errorText.slice(0, 300));
+                    throw new Error(`Error ${status}: ${errorText}`);
+                }
+
                 if (!contentType || !contentType.includes("application/json")) {
-                    const html = await response.text();
-                    console.error("❌ Got HTML (not JSON):", html.slice(0, 300));
-                    throw new Error("Expected JSON but got HTML");
+                    throw new Error("Expected JSON but got different content");
                 }
 
                 const data = await response.json();
