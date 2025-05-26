@@ -12,34 +12,39 @@ export default function Events() {
 
     useEffect(() => {
         const fetchEvents = async () => {
+            const fullURL = `${BASE_URL}/events/all`;
+            console.log("🌐 Fetching from:", fullURL);
+
             try {
-                const response = await fetch(`${BASE_URL}/events/all`, {
+                const response = await fetch(fullURL, {
                     headers: {
                         'Accept': 'application/json'
                     }
                 });
 
                 const contentType = response.headers.get("Content-Type");
+                const status = response.status;
+
+                console.log("🔍 Status:", status);
+                console.log("📄 Content-Type:", contentType);
+
                 if (!contentType || !contentType.includes("application/json")) {
-                    const text = await response.text();
-                    console.error("⚠️ Received non-JSON response:", text.slice(0, 500));
+                    const html = await response.text();
+                    console.error("❌ Got HTML (not JSON):", html.slice(0, 300));
                     throw new Error("Expected JSON but got HTML");
                 }
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
                 const data = await response.json();
+                console.log("✅ Received JSON:", data);
                 setEvents(data);
             } catch (error) {
-                console.error("❌ Fetch failed:", error);
+                console.error("🚨 Fetch Error:", error);
                 setError(error.message);
             }
         };
 
         fetchEvents();
-    }, [BASE_URL]);
+    }, []);
 
     const nextEvent = events.length > 0 ? events[0] : null;
 
