@@ -1,8 +1,8 @@
 {
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/api/events/all",
+      "destination": "https://lilrockstarsracing.onrender.com/api/events/all"
     }
   ]
 }
