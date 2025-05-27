@@ -62,7 +62,9 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
                 "https://lilrockstarsracing-admin.vercel.app",
-                "http://localhost:3000"
+                "http://localhost:3000",
+                "https://lilrockstarsracing-admin-ryan-s-projects-3cdf0875.vercel.app",
+                "https://lilrockstarsracing-admin-git-ad-c9104f-ryan-s-projects-3cdf0875.vercel.app/"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));

@@ -8,23 +8,25 @@ const AdminDashboard = () => {
 
     useEffect(() => {
         const fetchEvents = async () => {
-            try {
-                const token = localStorage.getItem('jwt');
-                const config = {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                };
+            const token = localStorage.getItem('jwt');
+            if (!token) {
+                setError('No token found. Please log in again.');
+                return;
+            }
 
+            try {
                 const response = await axios.get(
                     `${process.env.REACT_APP_API_URL}/admin/events/all`,
-                    config
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
                 );
-
                 setEvents(response.data);
             } catch (err) {
-                console.error('❌ Failed to fetch events', err);
-                setError('Access denied or session expired.');
+                console.error("Failed to fetch events", err);
+                setError("Access denied or session expired.");
             }
         };
 
