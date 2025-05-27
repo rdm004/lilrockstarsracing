@@ -1,32 +1,24 @@
+// src/components/AdminDashboard.jsx
 import React, { useEffect, useState } from 'react';
-import Nav from './Nav'; // Make sure your Nav component exists
-import axios from 'axios';
+import api from '../api/axios'; // Your custom axios wrapper
+import Nav from './Nav'; // Ensure this component exists
 
 const AdminDashboard = () => {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchEvents = async () => {
-            const token = localStorage.getItem('jwt');
-            if (!token) {
-                setError('No token found. Please log in again.');
-                return;
-            }
-
             try {
-                const response = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/admin/events/all`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
-                );
+                const response = await api.get('/admin/events/all');
                 setEvents(response.data);
+                console.log('📦 Events:', response.data);
             } catch (err) {
-                console.error("Failed to fetch events", err);
+                console.error("❌ Failed to fetch events", err);
                 setError("Access denied or session expired.");
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -40,6 +32,7 @@ const AdminDashboard = () => {
                 <h1>🛠️ Admin Dashboard</h1>
                 <h2>Upcoming Events</h2>
 
+                {loading && <p>Loading events...</p>}
                 {error && <p style={{ color: 'red' }}>{error}</p>}
 
                 <table border="1" cellPadding="8">
@@ -56,15 +49,17 @@ const AdminDashboard = () => {
                         events.map((event) => (
                             <tr key={event.id}>
                                 <td>{event.id}</td>
-                                <td>{event.name}</td>
+                                <td>{event.name || event.title}</td>
                                 <td>{event.location || 'N/A'}</td>
                                 <td>{event.date || 'TBD'}</td>
                             </tr>
                         ))
                     ) : (
-                        <tr>
-                            <td colSpan="4">No events found.</td>
-                        </tr>
+                        !loading && (
+                            <tr>
+                                <td colSpan="4">No events found.</td>
+                            </tr>
+                        )
                     )}
                     </tbody>
                 </table>
