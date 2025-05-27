@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/admin/events")
 public class AdminEventController {
@@ -26,4 +27,6 @@ public class AdminEventController {
         List<Event> events = eventService.getAllEvents();
         return ResponseEntity.ok(events);
     }
+
+
 }

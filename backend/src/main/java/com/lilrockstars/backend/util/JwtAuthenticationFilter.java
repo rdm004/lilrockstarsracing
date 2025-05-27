@@ -69,6 +69,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authToken);
 
                 System.out.println("✅ Auth set in context: " + SecurityContextHolder.getContext().getAuthentication());
+                if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+                    System.out.println("🚫 No Bearer token found. Skipping auth.");
+                    filterChain.doFilter(request, response);
+                    return;
+                }
             }
         }
 
@@ -77,7 +82,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private List<GrantedAuthority> extractAuthoritiesFromToken(String token) {
         Claims claims = jwtUtil.getClaims(token);
-        List<String> roles = claims.get("authorities", List.class);
+        List<String> roles = claims.get("roles", List.class);
         return roles == null ? List.of() : roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
