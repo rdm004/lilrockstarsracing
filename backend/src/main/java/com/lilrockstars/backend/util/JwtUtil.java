@@ -29,7 +29,7 @@ public class JwtUtil {
 
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
-                .claim("roles", roles)  // ✅ Replace 'authorities'
+                .claim("roles", roles)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -41,7 +41,7 @@ public class JwtUtil {
     }
 
     public List<String> extractRoles(String token) {
-        return getClaims(token).get("authorities", List.class);
+        return getClaims(token).get("roles", List.class);
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
