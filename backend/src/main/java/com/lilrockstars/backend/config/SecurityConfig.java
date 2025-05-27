@@ -49,23 +49,14 @@ public class SecurityConfig {
                     .csrf(csrf -> csrf.disable())
                     .sessionManagement(sess -> sess.disable());
         } else {
-            http
-                    .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
                     .csrf(csrf -> csrf.disable())
+                    .authorizeHttpRequests(auth -> {
+                        auth.requestMatchers("/api/auth/**").permitAll();
+                        auth.anyRequest().authenticated();
+                    })
                     .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                    .authorizeHttpRequests(auth -> auth
-                            .requestMatchers(
-                                    "/", "/index.html", "/favicon.ico",
-                                    "/css/**", "/js/**", "/images/**", "/static/**", "/html/**", "/media/**"
-                            ).permitAll()
-                            .requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/api/admin/registrations").hasRole("ADMIN")
-                            .requestMatchers(HttpMethod.GET, "/api/admin/events").hasRole("ADMIN")
-                            .anyRequest().authenticated()
-                    )
-                    .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        }
+                    .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -74,11 +65,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
-                "http://localhost:3000",
-                "http://localhost:5173",
-                "http://localhost:5174",
-                "https://lilrockstarsracingfrontend-git-a53213-ryan-s-projects-3cdf0875.vercel.app",
-                "https://lilrockstarsracing-admin-7emzt9lri-ryan-s-projects-3cdf0875.vercel.app.vercel.app"
+                "https://lilrockstarsracing-admin.vercel.app", // your deployed frontend
+                "http://localhost:3000"                        // for local testing
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
