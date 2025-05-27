@@ -33,7 +33,7 @@ const AdminDashboard = () => {
 
     return (
         <>
-            <Nav />
+
             <div className="admin-dashboard">
                 <h1>🛠️ Admin Dashboard</h1>
                 <h2>Upcoming Events</h2>
