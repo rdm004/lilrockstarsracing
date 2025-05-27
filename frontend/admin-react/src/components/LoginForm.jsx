@@ -1,48 +1,62 @@
+// src/components/LoginForm.jsx
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import axios from '../api/axios'; // Your custom axios with JWT support
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-    const login = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
+        setError('');
+
         try {
-            console.log("Logging in with:", { email, password });
+            const response = await axios.post('/auth/login', { email, password });
 
-            const response = await axios.post(
-                `${process.env.REACT_APP_API_URL}/auth/login`,
-                { email, password },
-                { headers: { 'Content-Type': 'application/json' } } // ✅ Required header
-            );
-
-            localStorage.setItem('jwt', response.data.token);
-            onLogin(); // ✅ Triggers navigation or auth state update
+            const { token } = response.data;
+            if (token) {
+                localStorage.setItem('jwt', token); // 🔐 Store token
+                console.log('✅ JWT stored:', token);
+                navigate('/admin/dashboard'); // 🔄 Redirect
+            } else {
+                setError('Login failed: no token returned.');
+            }
         } catch (err) {
-            console.error(err.response || err.message);
-            alert('Login failed: ' + (err.response?.data || err.message));
+            console.error('❌ Login error:', err);
+            setError('Invalid credentials or server error.');
         }
     };
 
     return (
-        <form onSubmit={login}>
-            <h2>Admin Login</h2>
-            <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
-            <button type="submit">Login</button>
-        </form>
+        <div className="login-form">
+            <h2>🔐 Admin Login</h2>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+
+            <form onSubmit={handleLogin}>
+                <div>
+                    <label>Email:</label><br />
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Password:</label><br />
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <button type="submit">Log In</button>
+            </form>
+        </div>
     );
 };
 

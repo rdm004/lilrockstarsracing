@@ -27,11 +27,12 @@ public class JwtUtil {
         List<String> roles = userDetails.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
+                .map(role -> role.startsWith("ROLE_") ? role : "ROLE_" + role)
                 .collect(Collectors.toList());
 
         return Jwts.builder()
-                .setSubject(userDetails.getUsername()) // sets `sub`
-                .claim("roles", roles) // consistent naming
+                .setSubject(userDetails.getUsername())
+                .claim("roles", roles)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -39,11 +40,11 @@ public class JwtUtil {
     }
 
     public String extractUsername(String token) {
-        return getClaims(token).getSubject(); // reads `sub`
+        return getClaims(token).getSubject();
     }
 
     public List<String> extractRoles(String token) {
-        return getClaims(token).get("roles", List.class); // read from correct claim
+        return getClaims(token).get("roles", List.class);
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
