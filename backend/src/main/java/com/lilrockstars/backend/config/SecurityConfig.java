@@ -1,4 +1,3 @@
-
 package com.lilrockstars.backend.config;
 
 import com.lilrockstars.backend.util.JwtAuthenticationFilter;
@@ -20,16 +19,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtFilter;
-
     private final boolean SECURITY_ENABLED = true;
 
     public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
@@ -49,14 +43,16 @@ public class SecurityConfig {
                     .csrf(csrf -> csrf.disable())
                     .sessionManagement(sess -> sess.disable());
         } else {
-            http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            http
+                    .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                     .csrf(csrf -> csrf.disable())
                     .authorizeHttpRequests(auth -> {
                         auth.requestMatchers("/api/auth/**").permitAll();
                         auth.anyRequest().authenticated();
                     })
                     .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                    .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                    .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        }
 
         return http.build();
     }
@@ -65,8 +61,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
-                "https://lilrockstarsracing-admin.vercel.app", // your deployed frontend
-                "http://localhost:3000"                        // for local testing
+                "https://lilrockstarsracing-admin.vercel.app",
+                "http://localhost:3000"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
