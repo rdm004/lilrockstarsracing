@@ -1,0 +1,402 @@
+.warning {
+    color: #d9534f;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* ====================================== Contact Section ====================================== */
+
+.contact-page {
+    padding: 20px;
+    /*max-width: 70%;*/
+    margin: 0 auto;
+}
+
+.contact-container {
+    display: flex;
+    max-width: 70%;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.contact-info {
+    flex: 2;
+    padding: 10px;
+    border: #1877f255 solid 2px;
+    border-radius: 8px;
+    max-width: 60%;
+    overflow: hidden;
+    overflow-wrap: break-word;
+}
+
+.contact-aside {
+    flex: 1;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 2px solid #f47c2055;
+    text-align: center;
+    border-radius: 8px;
+
+}
+
+.contact-item {
+    margin: 18px 0;
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.contact-aside p {
+    padding-bottom: 10px;
+}
+
+.contact-item:last-child {
+    border-bottom: none;
+}
+
+.contact-info a {
+    color: #f47c20;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-info p {
+    padding-top: 8px;
+}
+
+.contact-info h2 {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.contact-info a:hover {
+    text-decoration: underline !important;
+}
+
+/* ======================================= Facebook Button ========================================== */
+.facebook-button {
+    display: inline-flex;
+    align-items: center;
+    font-weight: bold;
+    background-color: #1877f2;
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    margin: 8px auto;
+    white-space: nowrap;
+    max-width: fit-content;
+    cursor: pointer;
+}
+
+.facebook-button img {
+    width: 20px; /* Make the icon smaller */
+    height: 20px; /* Keep it proportional */
+    margin-right: 8px;
+    flex-shrink: 0; /* Prevent the icon from shrinking */
+}
+
+.facebook-button:hover {
+    background-color: #145dbf;
+}
+
+
+/* ====================================== Intro Section-Home Page ====================================== */
+
+.introduction {
+    margin-bottom: 10px;
+}
+
+.introduction p {
+    line-height: 1.4;
+}
+
+.no-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ====================================== Welcome Section (Homepage) ====================================== */
+
+.welcome-container {
+    display: flex;
+    gap: 10px;
+    max-width: 60%;
+    margin: 20px auto;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center; /* Aligns the images to the center */
+
+}
+
+.welcome {
+    flex: 1;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: #145dbfcc solid;
+
+}
+
+.welcome h2 {
+    color: #f47c20;
+    font-size: 44px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.welcome p {
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+.welcome-image {
+    display: flex;
+    width: 400px; /* Or the size you want */
+    height: 300px; /* Adjust this as needed */
+    border-radius: 10px;
+    overflow: hidden;
+    align-items: flex-start;
+    justify-content: center;
+
+}
+
+/*.welcome-image img {*/
+/*    width: 80%;*/
+/*    height: 300px;*/
+/*    object-fit: fill;*/
+/*    border-radius: 10px;*/
+/*    overflow: hidden;*/
+/*}*/
+
+
+
+.welcome-sponsor-heading {
+    font-size: 2em;
+    max-width: 70%;
+    color: black;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    /*text-decoration: #f47c20 underline;*/
+
+}
+
+/*.welcome-sponsor-top img {*/
+/*    width: 300px; !* Adjust as necessary *!*/
+/*    height: auto;*/
+/*    border-radius: 10px;*/
+/*    margin-top: 10px;*/
+/*    border: black solid 1px;*/
+/*    display: inline-block;*/
+
+
+
+.welcome-sponsor-text {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 10px;
+    color: black;
+
+}
+
+.welcome-sponsor-links {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column; /* Stack vertically */
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+/*.sponsor-logo {*/
+/*    max-width: 300px;*/
+/*    height: auto;*/
+/*    border-radius: 10px; !* Rounds the corners *!*/
+/*}*/
+
+/*.rainbow-text {*/
+/*    background-image: linear-gradient(*/
+/*            45deg,*/
+/*            red,*/
+/*            orange,*/
+/*            green,*/
+/*            blue,*/
+/*            indigo,*/
+/*            violet*/
+/*    );*/
+/*    background-size: 400% 100%;*/
+/*    -webkit-background-clip: text;*/
+/*    -webkit-text-fill-color: transparent;*/
+/*    animation: rainbow 2s linear infinite;*/
+/*}*/
+
+@keyframes rainbow {
+    0% { background-position: 0 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+/* ====================================== Rules Section ====================================================== */
+.rules-page-layout {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: flex-start;
+    margin-top: 20px;
+
+}
+
+/*.rules-image img {*/
+/*    display: flex;*/
+/*    width: 400px;*/
+/*    height: auto;*/
+/*    border-radius: 10px;*/
+/*    object-fit: contain;*/
+/*    border: black solid 1px;*/
+/*}*/
+
+/*.left  {*/
+/*    margin-right: auto;*/
+/*    margin-left: auto;*/
+
+/*}*/
+/*.right {*/
+/*    margin-right: auto;*/
+/*    margin-left: auto;*/
+
+{}
+
+.rules-container {
+    flex-grow: 1;
+    max-width: 63%;
+    /*margin: 20px auto;*/
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: black;
+    border: #d9534fCC solid 5px;
+    font-size: 1.1em;
+}
+
+.rules-section h2 {
+    color: #f47c20;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #f47c20;
+    padding-bottom: 5px;
+}
+
+.rules-section p,
+.rules-section ul li {
+    font-size: 1.2rem;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.rules-section p, li:last-child {
+    /*margin-bottom: 10px;*/
+}
+
+
+
+/* ====================================== Events Section ====================================== */
+.events-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.event-card {
+    background: white;
+    border: 2px solid #f47c20;
+    border-radius: 8px;
+    padding: 15px;
+    width: 320px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.event-card h3 {
+    color: #f47c20;
+    margin-bottom: 10px;
+}
+
+.event-card .btn {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: darkorange;
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.event-card .btn:hover {
+    background-color: #ff9d3f;
+}
+
+.event-image {
+    display: grid;
+    justify-content: center;
+    align-items: start;
+    width: 100%;
+}
+
+.event-image img {
+    max-width: 100%;
+    height: 500px;
+    padding-bottom: 20px;
+}
+
+.event-heading {
+    text-align: center;
+    padding: 20px;
+}
+
+.event-heading h1 {
+    color: chartreuse;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 15px 25px;
+    border-radius: 8px;
+    display: inline-block;
+    text-align: center;
+}
+/* ====================================== Special Styling for Next Event ====================================== */
+.next-event-card {
+    border: 2px solid #00ff00 !important; /* Green border */
+}
+
+
+
+
+
+    /* ====================================== Indentation and Formatting ====================================== */
+
+    .indented {
+        display: block;
+        margin-left: 20px;
+    }
+
+    .indent-bullets {
+        padding-left: 40px;
+    }
+
+    .indent-bullets li {
+        text-indent: 0;
+        margin-bottom: 5px;
+    }

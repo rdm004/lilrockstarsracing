@@ -1,0 +1,50 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+
+# Backend build
+/target/
+/.mvn/
+.env
+
+# Frontend build & deps
+/frontend/node_modules/
+/frontend/build/
+/frontend/.vercel/
+/frontend/.env
+
+# Ignore config containing secrets
+src/main/resources/config.properties
+# keep credentials out of Git
+backend/src/main/resources/application.properties
