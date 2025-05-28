@@ -18,10 +18,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Person person = personRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        // Get the role enum and prefix it
-        String role = "ROLE_" + person.getRole().name(); // enum -> string with "ROLE_" prefix
+        String role = "ROLE_" + person.getRole().name(); // ROLE_ADMIN
 
         return new org.springframework.security.core.userdetails.User(
                 person.getEmail(),
