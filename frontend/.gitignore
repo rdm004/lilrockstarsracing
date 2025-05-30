@@ -28,3 +28,8 @@ src/supabaseClient.js
 media-react/src/supabaseClient.js
 
 # local environment variables
+
+# Legacy folders - now merged into /frontend/src/
+frontend/admin-react/
+frontend/events-react/
+frontend/media-react/
