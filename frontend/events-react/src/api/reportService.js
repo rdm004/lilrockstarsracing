@@ -2,14 +2,14 @@ import { supabase } from './supabaseClient';
 
 export const fetchEventReport = async () => {
     const { data, error } = await supabase
-        .from('event')
+        .from('event') // ✅ this is the table name
         .select(`
-      event.id,
-      name,
-      date,
-      location,
-      registration(count)
-    `)
+    event_id,
+    name,
+    date,
+    location,
+    registration(count)
+  `)
         .order('date', { ascending: true });
 
     if (error) {
@@ -18,7 +18,7 @@ export const fetchEventReport = async () => {
     }
 
     return data.map(evt => ({
-        id: evt.id,
+        id: evt.event_id,
         name: evt.name,
         date: evt.date,
         location: evt.location,
