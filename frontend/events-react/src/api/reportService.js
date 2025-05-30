@@ -1,4 +1,3 @@
-// src/api/reportService.js
 import { supabase } from './supabaseClient';
 
 export const fetchEventReport = async () => {
@@ -23,6 +22,6 @@ export const fetchEventReport = async () => {
         name: evt.name,
         date: evt.date,
         location: evt.location,
-        registrationCount: evt.registration[0]?.count || 0,
+        registrationCount: evt.registration?.[0]?.count || 0,
     }));
 };
