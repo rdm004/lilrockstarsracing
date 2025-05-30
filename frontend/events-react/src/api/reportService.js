@@ -3,7 +3,7 @@ import { supabase } from './supabaseClient';
 
 export const fetchEventReport = async () => {
     const { data, error } = await supabase
-        .from('events')
+        .from('event')
         .select(`
       id,
       name,
