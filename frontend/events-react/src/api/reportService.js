@@ -9,7 +9,7 @@ export const fetchEventReport = async () => {
       name,
       date,
       location,
-      registrations(count)
+      registration(count)
     `)
         .order('date', { ascending: true });
 
@@ -23,6 +23,6 @@ export const fetchEventReport = async () => {
         name: evt.name,
         date: evt.date,
         location: evt.location,
-        registrationCount: evt.registrations[0]?.count || 0,
+        registrationCount: evt.registration[0]?.count || 0,
     }));
 };
