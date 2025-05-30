@@ -1,8 +1,7 @@
-// src/components/EventReportTable.jsx
 import React, { useEffect, useState } from 'react';
 import { fetchEventReport } from '../api/reportService.js';
 
-export default function EventReportTable() {
+export default function EventReportTable({ searchTerm = '' }) {
     const [report, setReport] = useState([]);
     const [error, setError] = useState('');
 
@@ -12,11 +11,16 @@ export default function EventReportTable() {
             .catch((err) => setError(err.message));
     }, []);
 
+    const filteredReport = report.filter(evt =>
+        evt.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div style={{ marginTop: '3rem' }}>
             <h3>📋 Event Registration Report</h3>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            {report.length > 0 ? (
+
+            {filteredReport.length > 0 ? (
                 <table border="1" cellPadding="8" style={{ borderCollapse: 'collapse' }}>
                     <thead>
                     <tr>
@@ -27,7 +31,7 @@ export default function EventReportTable() {
                     </tr>
                     </thead>
                     <tbody>
-                    {report.map((evt) => (
+                    {filteredReport.map((evt) => (
                         <tr key={evt.id}>
                             <td>{evt.name}</td>
                             <td>{new Date(evt.date).toLocaleDateString()}</td>

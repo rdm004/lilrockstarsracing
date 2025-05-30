@@ -5,12 +5,13 @@ import EventReportTable from '../components/EventReportTable';
 export default function Events() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
+    const [reportTimestamp, setReportTimestamp] = useState('');
+    const [showReport, setShowReport] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const BASE_URL = 'https://lilrockstarsracing-test.onrender.com/api';
 
     useEffect(() => {
-        console.log("✅ Fetching from:", `${BASE_URL}/events/all`);
-
         fetch(`${BASE_URL}/events/all`)
             .then(res => {
                 const contentType = res.headers.get("content-type");
@@ -21,29 +22,30 @@ export default function Events() {
                 return res.json();
             })
             .then(data => {
-                console.log("✅ Events loaded:", data);
                 setEvents(data);
             })
             .catch(err => {
-                console.error("❌ Fetch error:", err);
                 setError(err.message);
             });
     }, []);
 
     const nextEvent = events.length > 0 ? events[0] : null;
 
+    const handleRunReport = () => {
+        setShowReport(true);
+        const now = new Date().toLocaleString();
+        setReportTimestamp(`Report generated on ${now}`);
+    };
+
     return (
         <div className="events-page">
             {error && (
-                <div className="error-banner">
-                    ❌ Error loading events: {error}
-                </div>
+                <div className="error-banner">❌ Error loading events: {error}</div>
             )}
 
             {nextEvent && (
                 <div className="next-event-banner">
-                    Next Event:&nbsp;
-                    <span className="next-link">{nextEvent.name}</span>
+                    Next Event: <span className="next-link">{nextEvent.name}</span>
                 </div>
             )}
 
@@ -80,8 +82,30 @@ export default function Events() {
                 )}
             </div>
 
-            {/* 📊 Supabase-powered registration report */}
-            <EventReportTable />
+            {/* 📊 Event Report */}
+            <div className="event-report-section" style={{ marginTop: '4rem' }}>
+                <h3>📋 Event Registration Report</h3>
+                <button onClick={handleRunReport}>📊 Run Report</button>
+
+                {reportTimestamp && (
+                    <p style={{ fontStyle: 'italic', marginTop: '0.5rem', color: '#555' }}>
+                        {reportTimestamp}
+                    </p>
+                )}
+
+                {showReport && (
+                    <>
+                        <input
+                            type="text"
+                            placeholder="🔍 Search by event name..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            style={{ marginTop: '1rem', padding: '0.5rem', width: '300px' }}
+                        />
+                        <EventReportTable searchTerm={searchTerm} />
+                    </>
+                )}
+            </div>
         </div>
     );
 }
