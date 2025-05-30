@@ -1,6 +1,6 @@
 // src/components/EventReportTable.jsx
 import React, { useEffect, useState } from 'react';
-import { fetchEventReport } from '../components/';
+import { fetchEventReport } from '../api/reportService.js';
 
 export default function EventReportTable() {
     const [report, setReport] = useState([]);
