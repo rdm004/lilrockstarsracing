@@ -1,5 +1,6 @@
 import React from 'react';
-import './Events.css'
+import { Link } from 'react-router-dom';
+import './Events.css';
 
 export default function Nav() {
     return (
@@ -8,9 +9,9 @@ export default function Nav() {
                 <li><a href="/index.html" className="navbar-link">Home</a></li>
                 <li><a href="/about.html" className="navbar-link">About</a></li>
                 <li><a href="/contact.html" className="navbar-link">Contact</a></li>
-                <li><a href="/events" className="navbar-link">Events</a></li>
-                <li><a href="/media" className="navbar-link">Media</a></li>
-                <li><a href="/admin" className="navbar-link">Admin</a></li>
+                <li><Link to="/events" className="navbar-link">Events</Link></li>
+                <li><Link to="/media" className="navbar-link">Media</Link></li>
+                <li><Link to="/admin" className="navbar-link">Admin</Link></li>
             </ul>
         </div>
     );

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 function App() {
     useEffect(() => {
-        const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+        const BASE_URL = import.meta.env.VITE_API_URL;
 
         fetch(`${BASE_URL}/api/test`)
             .then(res => res.text())

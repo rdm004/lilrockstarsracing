@@ -8,14 +8,30 @@ const MediaGallery = () => {
 
     useEffect(() => {
         const fetchMedia = async () => {
-            const { data, error } = await supabase.from('media').select('media_id, caption, url');
+            const { data, error } = await supabase
+                .from('media')
+                .select('media_id, caption, file_path');
+
             if (error) {
                 console.error('Error loading media:', error);
             } else {
-                setImages(data);
+                const mediaWithUrls = data.map((img) => {
+                    const publicUrl = supabase
+                        .storage
+                        .from('media')
+                        .getPublicUrl(img.file_path).data.publicUrl;
+
+                    return {
+                        media_id: img.media_id,
+                        caption: img.caption,
+                        url: publicUrl,
+                    };
+                });
+
+                setImages(mediaWithUrls);
             }
         };
-// comment to push documents
+
         fetchMedia();
     }, []);
 

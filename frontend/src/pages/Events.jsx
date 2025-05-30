@@ -9,7 +9,8 @@ export default function Events() {
     const [showReport, setShowReport] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
 
-    const BASE_URL = 'https://lilrockstarsracing-test.onrender.com/api';
+    const BASE_URL = import.meta.env.VITE_API_URL;
+
 
     useEffect(() => {
         fetch(`${BASE_URL}/events/all`)
