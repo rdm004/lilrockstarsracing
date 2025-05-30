@@ -4,7 +4,7 @@ export const fetchEventReport = async () => {
     const { data, error } = await supabase
         .from('event')
         .select(`
-      id,
+      event.id,
       name,
       date,
       location,
