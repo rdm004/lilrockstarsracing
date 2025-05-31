@@ -1,20 +1,25 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Events from './pages/Events';
+import MediaGallery from './pages/MediaGallery';
+import Admin from './pages/Admin'; // assume you have this
+import Nav from './components/Nav';
 
 function App() {
-    useEffect(() => {
-        const BASE_URL = import.meta.env.VITE_API_URL;
-
-        fetch(`${BASE_URL}/api/test`)
-            .then(res => res.text())
-            .then(data => console.log("✅ Backend says:", data))
-            .catch(err => console.error("❌ Backend failed:", err));
-    }, []);
-
     return (
-        <div>
-            <h1>Lil Rockstars</h1>
-            <p>Check the console to see if the backend responds.</p>
-        </div>
+        <Router>
+            <Nav />
+            <Routes>
+                <Route path="/" element={<h1>🏁 Welcome to Lil Rockstars</h1>} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/events" element={<Events />} />
+                <Route path="/media" element={<MediaGallery />} />
+                <Route path="/admin" element={<Admin />} />
+            </Routes>
+        </Router>
     );
 }
 
