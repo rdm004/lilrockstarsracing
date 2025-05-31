@@ -1,11 +1,10 @@
-// vite.config.js (in /frontend/)
+// frontend/vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
     plugins: [react()],
-    root: './', // base path is correct
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src'),
@@ -15,4 +14,6 @@ export default defineConfig({
         outDir: 'dist',
         emptyOutDir: true,
     },
+    // Optional: Ensure base path for assets is correct
+    base: './',
 });
