@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Events.css';
+import '../components/Events.css';
 import EventReportTable from '../components/EventReportTable';
 
 export default function Events() {

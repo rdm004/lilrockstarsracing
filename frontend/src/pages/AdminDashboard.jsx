@@ -1,6 +1,6 @@
 // src/components/AdminDashboard.jsx
 import React, { useEffect, useState } from 'react';
-import Nav from './Nav';
+import Nav from '../components/Nav.jsx';
 
 import axios from 'axios';
 

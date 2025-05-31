@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchEventReport } from '../api/reportService.js';
+import { fetchEventReport } from '../services/reportService.js';
 
 export default function EventReportTable({ searchTerm = '' }) {
     const [report, setReport] = useState([]);

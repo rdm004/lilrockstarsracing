@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Nav from './components/Nav';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Events from './pages/Events';
-import MediaGallery from './pages/MediaGallery';
+import Nav from '../components/Nav';
+import About from '../pages/About';
+import Contact from '../pages/Contact';
+import Events from '../pages/Events';
+import MediaGallery from '../pages/MediaGallery';
+import '../components/pages.css'; // or split styles as needed
+
 
 function App() {
     useEffect(() => {

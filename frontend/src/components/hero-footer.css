@@ -2,7 +2,7 @@
 .hero {
     position: relative;
     height: 200px;
-    background: url('../website-images/flag2.png') repeat-x;
+    background: url('/frontend/src/image/flag2.png') repeat-x;
     background-size: contain;
     animation: ripple-flags 120s linear infinite;
     display: flex;
