@@ -33,3 +33,7 @@ media-react/src/supabaseClient.js
 frontend/admin-react/
 frontend/events-react/
 frontend/media-react/
+
+# .env files
+.env
+.env.production
