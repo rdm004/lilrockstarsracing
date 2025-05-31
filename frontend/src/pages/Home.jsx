@@ -1,5 +1,5 @@
 import React from 'react';
-import '../components/pages.css'; // or split styles as needed
+import '../stylespages.css'; // or split styles as needed
 
 export default function Home() {
     return (

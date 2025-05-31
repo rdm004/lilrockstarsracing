@@ -1,5 +1,5 @@
 import React from 'react';
-import '../components/pages.css'; // or split styles as needed
+import '../styles/pages.css'; // or split styles as needed
 
 const About = () => (
     <>

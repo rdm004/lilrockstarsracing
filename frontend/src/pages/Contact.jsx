@@ -1,6 +1,6 @@
 // src/pages/Contact.jsx
 import React from 'react';
-import '../components/pages.css'; // if you've extracted page-specific styles
+import '../styles/pages.css'; // if you've extracted page-specific styles
 
 export default function Contact() {
     return (
