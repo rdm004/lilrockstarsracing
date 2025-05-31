@@ -1,7 +1,7 @@
 // src/pages/MediaGallery.jsx
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import './MediaGallery.css';
+import '../components/MediaGallery.css';
 
 const MediaGallery = () => {
     const [images, setImages] = useState([]);
